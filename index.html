@@ -16,18 +16,56 @@
     <link rel="manifest" href="images/favicon/site.webmanifest">
 
     <link rel="stylesheet" href="css/styles.css">
-    
-
+    <link rel="stylesheet" href="css/external/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alkatra&display=swap" rel="stylesheet">
+    <script src="js/jquery-2.2.3.min.js"></script>
 </head>
 
 <body>
 
 
+    <header>
+        <!-- Navbar -->
+        <nav class="navbar navbar-light " style=" background-color: #cee1f6">
+            <a class="navbar-brand  mx-2" href="#">
+                <img src="images/cd-logo.png" width="50" height="50" class="d-inline-block align-top" alt="">
+                <h2 class="d-inline-block align-top my-2 cd-heading"> Company Directory</h2>
+            </a>
+            <button class="btn  my-2 my-sm-0 mx-2 search-btn" id="btn-search" type="submit">Search</button>
 
-    
+        </nav>
+
+    </header>
+    <div class="modal" id="searchModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 
 
     <script src="js/script.js"></script>
+
+    <script src="js/external/bootstrap.min.js.download"></script>
 </body>
 
 </html>
