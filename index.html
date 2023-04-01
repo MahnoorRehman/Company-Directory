@@ -38,34 +38,83 @@
         </nav>
 
     </header>
-    <div class="modal" id="searchModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+
+
+    <!-- Search Modal -->
+    <div class="modal fade show" id="searchModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                <div class="modal-header text-light" style="background-color: #22456b;">
+                    <h4 class="fs-4 text-center modal-title w-100">Search Employees
+                    </h4>
+                    <button type="button" class="btn-close  search-btn" id="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close" style="color: white; "></button>
                 </div>
-                <div class="modal-body">
-                    <p>Modal body text goes here.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+                <form id="searchEmployeeForm">
+                    <div class="modal-body">
+                        <!-- Edit Employee Form -->
+                        <div class="container">
+                            <div id="searchEmployeeFeedback" class="feedbackMessage"></div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="searchFirstName" placeholder="First Name">
+                                <label for="searchFirstName">First Name</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="searchLastName" placeholder="Last Name">
+                                <label for="searchLastName">Last Name</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select class="form-select departmentSelect" id="searchDepartmentSelect">
+                                    <option value="">Select Departments</option>
+                                    <option value="11">Accounting</option>
+                                    <option value="12">Business Development</option>
+                                    <option value="10">Engineering</option>
+
+                                </select>
+
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select class="form-select locationSelect" id="searchLocationSelect">
+                                    <option value="">Select Locations</option>
+                                    <option value="">Bingpot</option>
+                                    <option value="">Cardiff </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="submit" class="btn search-btn">Search</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
+    <!-- -------------- NAV BUTTONS -------------- -->
+    <nav>
+        <div class="nav justify-content-center  navbar-dark  p-0" id="nav-tab" role="tablist">
+
+            <div class="d-flex nav nav-tabs text">
+                <button class="nav-link mt-4 p2-5" id="nav-personnel-tab" data-bs-toggle="tab"
+                    data-bs-target="#nav-personnel" type="button" role="tab" aria-controls="nav-personnel"
+                    aria-selected="true">Personnel</button>
+                <button class="nav-link mt-4 p2-5" id="nav-departments-tab" data-bs-toggle="tab"
+                    data-bs-target="#nav-departments" type="button" role="tab" aria-controls="nav-departments"
+                    aria-selected="false">Departments</button>
+                <button class="nav-link mt-4 p2-5" id="nav-locations-tab" data-bs-toggle="tab"
+                    data-bs-target="#nav-locations" type="button" role="tab" aria-controls="nav-locations"
+                    aria-selected="false">Locations</button>
+            </div>
+        </div>
+    </nav>
 
 
 
 
 
-    <script src="js/script.js"></script>
+    <script type="module" src="js/script.js"></script>
 
-    <script src="js/external/bootstrap.min.js.download"></script>
+    <script src="js/external/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
