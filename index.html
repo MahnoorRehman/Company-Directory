@@ -20,6 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alkatra&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="js/jquery-2.2.3.min.js"></script>
 </head>
 
@@ -40,7 +41,7 @@
     </header>
 
 
-    <!-- Search Modal -->
+    <!------------- Search Modal-------------------->
     <div class="modal fade show" id="searchModal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
             <div class="modal-content">
@@ -90,18 +91,18 @@
         </div>
     </div>
 
-    <!-- -------------- NAV BUTTONS -------------- -->
+    <!-- -------------- NAV BUTTONS ----------------->
     <nav>
         <div class="nav justify-content-center  navbar-dark  p-0" id="nav-tab" role="tablist">
 
             <div class="d-flex nav nav-tabs text">
-                <button class="nav-link mt-4 p2-5" id="nav-personnel-tab" data-bs-toggle="tab"
+                <button class="nav-link mt-4 p2-5 nav-button" id="nav-personnel-tab" data-bs-toggle="tab"
                     data-bs-target="#nav-personnel" type="button" role="tab" aria-controls="nav-personnel"
                     aria-selected="true">Personnel</button>
-                <button class="nav-link mt-4 p2-5" id="nav-departments-tab" data-bs-toggle="tab"
+                <button class="nav-link mt-4 p2-5 nav-button" id="nav-departments-tab" data-bs-toggle="tab"
                     data-bs-target="#nav-departments" type="button" role="tab" aria-controls="nav-departments"
                     aria-selected="false">Departments</button>
-                <button class="nav-link mt-4 p2-5" id="nav-locations-tab" data-bs-toggle="tab"
+                <button class="nav-link mt-4 p2-5 nav-button" id="nav-locations-tab" data-bs-toggle="tab"
                     data-bs-target="#nav-locations" type="button" role="tab" aria-controls="nav-locations"
                     aria-selected="false">Locations</button>
             </div>
@@ -109,12 +110,50 @@
     </nav>
 
 
+    <div class="ps-2 pe-2">
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show" id="nav-personnel" role="tabpanel" aria-labelledby="nav-personnel-tab">
+                <div class="d-flex justify-content-between mt-3 mb-2">
+                    <button id="insertPersonnel" class="btn search-btn align-self-start me-2"><span class="btnHide">Add
+                            Personnel&nbsp;&nbsp;</span><i class="fas fa-plus-circle"></i></button>
+
+                </div>
+                <div class="table-responsive">
+                    <table id='tablePers' class="table"></table>
+                    <i class="fas fa-arrow-circle-up top-pers" title="return to top"></i>
+                </div>
+            </div>
+            <div class="tab-pane fade show" id="nav-departments" role="tabpanel" aria-labelledby="nav-departments-tab">
+                <div class="d-flex justify-content-between mt-3 mb-2">
+                    <button id="insertDepartment" class="btn search-btn align-self-start me-2"><span class="btnHide">Add
+                            Department&nbsp;&nbsp;</span><i class="fas fa-plus-circle"></i></button>
+
+                </div>
+                <div class="table-responsive">
+                    <table id='tableDept' class="table"></table>
+                    <i class="fas fa-arrow-circle-up top-dep" title="return to top"></i>
+                </div>
+            </div>
+            <div class="tab-pane fade show" id="nav-locations" role="tabpanel" aria-labelledby="nav-locations-tab">
+                <div class="d-flex justify-content-between mt-3 mb-2">
+                    <button id="insertLocation" class="btn search-btn align-self-start me-2"><span class="btnHide">Add
+                            Location&nbsp;&nbsp;</span><i class="fas fa-plus-circle"></i></button>
+
+                </div>
+                <div class="table-responsive">
+                    <table id='tableLoc' class="table"></table>
+                    <i class="fas fa-arrow-circle-up top-loc" title="return to top"></i>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
     <script type="module" src="js/script.js"></script>
 
     <script src="js/external/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/da3b0a7642.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

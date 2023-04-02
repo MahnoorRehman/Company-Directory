@@ -46,4 +46,35 @@ body {
     border: 1px solid white !important;
     background-color: #22456b !important;
 
+
+}
+
+.nav-button {
+    color: #22456b !important;
+    font-size: 20px !important;
+    font-weight: 600 !important;
+}
+
+.nav-button:hover {
+
+    background-color: #97c1ee !important;
+
+}
+
+
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+    color: #22456b !important;
+    background-color: #fff !important;
+    border-color: #22456b #22456b #fff !important;
+    border-width: 2px !important;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link {
+
+    border-bottom-color: #22456b !important;
+    border-bottom-width: 2px !important;
+
 }

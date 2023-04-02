@@ -2,6 +2,10 @@
 
 $(document).ready(function () {
 
+
+
+    
+
     $("#btn-search").click(function () {
         $("#searchModal").show();
     });
