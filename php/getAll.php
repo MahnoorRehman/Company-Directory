@@ -29,9 +29,10 @@ if($stmt){
             'data'=>$info
 
         ];
-  
+        mysqli_stmt_close($stmt);
         mysqli_close($con);   
         echo json_encode($data);
+        exit;
      
      } else{
          while($row=mysqli_fetch_assoc($result)){
@@ -43,8 +44,10 @@ if($stmt){
             'message'=> 'Data Fetch Successful',
             'data'=>$info
          ];
+         mysqli_stmt_close($stmt);
          mysqli_close($con);
          echo json_encode($info);
+         exit;
      }
 } 
 
