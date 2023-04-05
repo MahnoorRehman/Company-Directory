@@ -24,7 +24,7 @@ $(document).ready(function () {
     let insetPersonal = document.querySelector('#insertPersonnel');
 
     $(insetPersonal).click(function () {
-        console.log('person button clikced')
+        console.log('person button clicked')
         $('#personnelCreate').show();
     });
 
