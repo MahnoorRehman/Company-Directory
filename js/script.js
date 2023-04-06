@@ -7,6 +7,8 @@ $(window).on('load', function () { // makes sure the whole site is loaded
     $('body').delay(350).css({ 'overflow': 'visible' });
 })
 
+
+let deptName;
 $(document).ready(function () {
 
     showAllRecord();
@@ -19,17 +21,15 @@ $(document).ready(function () {
     });
 
 
-    // Insert Person
-
-    let insetPersonal = document.querySelector('#insertPersonnel');
-
-    $(insetPersonal).click(function () {
-        console.log('person button clicked')
-        $('#personnelCreate').show();
-    });
-
+    //  Personnel
+    personnel();
+    department();
+    location();
 });
+// $(document).on('click', '.edit-personel', function () {
+//     $('#personnelEdit').show();
 
+// });
 
 // function to show all records in a Person Department and Location Table
 function showAllRecord() {
@@ -47,25 +47,23 @@ function showAllRecord() {
                     let fName = d.firstName;
                     let lName = d.lastName;
                     let email = d.email;
-                    let deptName = d.department;
+                    deptName = d.department;
                     let locName = d.location;
                     // console.log(locName);
                     //  console.log(deptName);
                     appendPersonelData(fName, lName, email, deptName, locName);
                     appenedDeptData(deptName, locName);
                     appenedLocation(locName);
+
                 });
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(errorThrown);
         }
+
     });
 }
-
-
-
-
 
 
 // Function to show all Data in Perosn Tablle
@@ -80,6 +78,7 @@ function appendPersonelData(fName, lName, email, locName, deptName) {
             $("<td>").html('<i class="fas fa-edit edit edit-personel"></i>'),
             $("<td>").html('<i class="fas fa-trash-alt delete-person"></i>')
         )
+
         // "<tr>" +
         // "<td>" + fName + ", " + lName + "</td>" +
         // "<td>" + email + "</td>" +
@@ -89,6 +88,8 @@ function appendPersonelData(fName, lName, email, locName, deptName) {
         // "<td>" + "DI" + "</td>" +
         // +"</tr>"
     );
+
+
 
 }
 // Function to show all Data in Department Tablle
@@ -115,5 +116,175 @@ const appenedLocation = (locName) => {
             $("<td>").html('<i class="fas fa-trash-alt delete-location"></i>')
         )
     )
+
+}
+
+
+//get All department
+function deptList() {
+    $('.departmentSel').empty();
+
+    $.ajax({
+        url: 'php/getAllDept.php',
+        type: 'POST',
+        datatype: 'json',
+        success: function (result, textStatus) {
+            if (textStatus == 'success') {
+                let jsondata = JSON.stringify(result);
+                let deptList = JSON.parse(jsondata);
+                // console.log(deptList);
+                $('.departmentSel').append('<option value="" selected="true" disabled>Choose a Department</option>');
+                deptList.forEach(function (d) {
+
+                    $('.departmentSel').append($('<option>', {
+                        value: d.id,
+                        text: d.name
+                    }));
+
+                });
+
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown, textStatus);
+        }
+
+    });
+}
+
+
+
+//Personnel
+
+function personnel() {
+    insetPersoennl();
+    editPersonnel();
+
+
+}
+//Insert Personal
+
+const insetPersoennl = () => {
+    let insetPersoennl = document.querySelector('#insertPersonnel');
+    let cancelPersonnelInsert = document.querySelector('#cancelPersonnelInsert');
+
+    let personnelModal = document.querySelector('#personnelCreate');
+
+    $(insetPersoennl).click(function () {
+        // console.log('person button clicked')
+        $(personnelModal).show();
+
+
+        //rest cod
+        deptList();
+
+    });
+    $(cancelPersonnelInsert).click(function () {
+        // console.log('person button clicked')
+        $(personnelModal).hide();
+    });
+}
+
+//Edit Personnel
+
+
+const editPersonnel = () => {
+
+    // let editPersonnel = document.querySelector('.edit-personel');
+
+    // $('.edit-personel').click(function () {
+    //     // console.log('edit button clicked');
+    //     $('#personnelEdit').show();
+    // });
+
+
+}
+
+//Delete Pernonnel
+
+
+
+// Department
+
+function getAllLoc() {
+    $('.locationSel').empty();
+
+    $.ajax({
+        url: 'php/getAllLoc.php',
+        type: 'POST',
+        datatype: 'json',
+        success: function (result, textStatus) {
+            if (textStatus == 'success') {
+                let jsondata = JSON.stringify(result);
+                let locList = JSON.parse(jsondata);
+                //  console.log(locList);
+                $('.locationSel').append('<option value="" selected="true" disabled>Choose a Department</option>');
+                locList.forEach(function (l) {
+                    $('.locationSel').append($('<option>', {
+                        value: l.id,
+                        text: l.name
+                    }));
+                });
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown, textStatus);
+        }
+
+    });
+}
+
+
+function department() {
+    insertDepartment();
+}
+
+
+function insertDepartment() {
+    let insertDept = document.querySelector('#insertDepartment');
+    let cancelDept = document.querySelector('.cancel-dept');
+
+    let deptModal = document.querySelector('#departmentCreate')
+
+
+    $(insertDept).click(function () {
+        //  console.log('i am clicked');
+        $(deptModal).show();
+    });
+
+    $(cancelDept).click(function () {
+        $(deptModal).hide();
+    });
+
+    getAllLoc();
+
+}
+
+
+
+
+
+
+
+// Location
+
+function location() {
+    insertLocation();
+}
+
+const insertLocation = () => {
+
+    let locModal = document.querySelector('#locationCreate');
+    let insertLoc = document.querySelector('#insertLocation');
+    let cancelLoc = document.querySelector('.cancelLoc');
+
+    $(insertLoc).click(function () {
+        // console.log('i am clicked');
+        $(locModal).show();
+    });
+
+    $(cancelLoc).click(function () {
+        $(locModal).hide();
+    })
 
 }

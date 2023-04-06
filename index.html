@@ -256,7 +256,9 @@
                                 id="departmentSelInsert" placeholder='Choose a Department'
                                 aria-label="Default select example"
                                 oninvalid="this.setCustomValidity('Please select a department')"
-                                oninput="this.setCustomValidity('')"></select>
+                                oninput="this.setCustomValidity('')">
+
+                            </select>
                         </div>
                         <div class="mt-3">
                             <input required class="form-check-input" type="checkbox" value="" id="personCheck">
@@ -266,9 +268,9 @@
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
-                        <button type="submit" disabled class="btn btn-success double"
-                            id="confirmPersCreate">Insert</button>
-                        <button type="button" class="btn btn-warning double" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn search-btn double" id="confirmPersCreate">Insert</button>
+                        <button type="button" class="btn btn-warning double" id="cancelPersonnelInsert"
+                            data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </form>
             </div>
@@ -365,7 +367,8 @@
     <!---------------------------------------------------- DEPARTMENT ------------------------------------------------------>
 
     <!-- INSERT DEPARTMENT -->
-    <div class="modal fade" id="departmentCreate" tabindex="-1" aria-labelledby="Create Department" aria-hidden="true">
+    <div class="modal fade show" id="departmentCreate" tabindex="-1" aria-labelledby="Create Department"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-primary">
                 <div class="modal-header">
@@ -398,9 +401,9 @@
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
-                        <button type="submit" disabled class="btn btn-success double"
-                            id="confirmDepCreate">Insert</button>
-                        <button type="button" class="btn btn-warning double" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn search-btn double" id="confirmDepCreate">Insert</button>
+                        <button type="button" class="btn btn-warning  cancel-dept"
+                            data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </form>
             </div>
@@ -475,7 +478,7 @@
     <!---------------------------------------------------- LOCATION ------------------------------------------------------>
 
     <!-- INSERT LOCATION -->
-    <div class="modal fade" id="locationCreate" tabindex="-1" aria-labelledby="Create Location" aria-hidden="true">
+    <div class="modal fade show" id="locationCreate" tabindex="-1" aria-labelledby="Create Location" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-primary">
                 <div class="modal-header">
@@ -500,9 +503,8 @@
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
-                        <button type="submit" disabled class="btn btn-success double"
-                            id="confirmLocCreate">Insert</button>
-                        <button type="button" class="btn btn-warning double" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn search-btn double " id="confirmLocCreate">Insert</button>
+                        <button type="button" class="btn btn-warning cancelLoc" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </form>
             </div>

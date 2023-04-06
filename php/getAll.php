@@ -25,7 +25,7 @@ if($stmt){
 
         $data=[
             'success'=> false,
-            'message'=> 'Sorry No data',
+            'message'=> 'No data Available',
             'data'=>$info
 
         ];
