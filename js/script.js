@@ -9,9 +9,10 @@ $(window).on('load', function () { // makes sure the whole site is loaded
 
 
 let deptName;
+
 $(document).ready(function () {
 
-    showAllRecord();
+
     $("#btn-search").click(function () {
         $("#searchModal").show();
     });
@@ -31,8 +32,9 @@ $(document).ready(function () {
 
 // });
 
-// function to show all records in a Person Department and Location Table
-function showAllRecord() {
+
+// function to show all records in a Person 
+function getAllPersonnel() {
     $.ajax({
         url: 'php/getAll.php',
         type: 'POST',
@@ -51,9 +53,8 @@ function showAllRecord() {
                     let locName = d.location;
                     // console.log(locName);
                     //  console.log(deptName);
-                    appendPersonelData(fName, lName, email, deptName, locName);
-                    appenedDeptData(deptName, locName);
-                    appenedLocation(locName);
+                    personnelTablerecord(fName, lName, email, deptName, locName);
+
 
                 });
             }
@@ -66,8 +67,85 @@ function showAllRecord() {
 }
 
 
+let loc;
+//get All Location
+function getAllLoc() {
+    $('.locationSel').empty();
+
+    $.ajax({
+        url: 'php/getAllLoc.php',
+        type: 'POST',
+        datatype: 'json',
+        success: function (result, textStatus) {
+            if (textStatus == 'success') {
+                let jsondata = JSON.stringify(result);
+                let locList = JSON.parse(jsondata);
+                //  console.log(locList);
+                $('.locationSel').append('<option value="" selected="true" disabled>Choose a Department</option>');
+                locList.forEach(function (l) {
+                    loc = l.name;
+
+                    //  console.log(loc);
+                    locationTableRecord(loc)
+                    $('.locationSel').append($('<option>', {
+                        value: l.id,
+                        text: l.name
+                    }));
+                });
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown, textStatus);
+        }
+
+    });
+}
+
+
+//get All department
+function getAllDept() {
+
+    $('.departmentSel').empty();
+
+    $.ajax({
+        url: 'php/getAllDept.php',
+        type: 'POST',
+        datatype: 'json',
+        success: function (result, textStatus) {
+            if (textStatus == 'success') {
+                let jsondata = JSON.stringify(result);
+                let deptList = JSON.parse(jsondata);
+                $('.departmentSel').append('<option value="" selected="true" disabled>Choose a Department</option>');
+                deptList.forEach(function (d) {
+                    let dep = d.name;
+                    deptTableRecord(dep, loc);
+                    console.log(d.name);
+                    // deptTableRecord(dep, loc);
+                    $('.departmentSel').append($('<option>', {
+                        value: d.id,
+                        text: dep
+                    }));
+                });
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown, textStatus);
+        }
+
+    });
+}
+
+//Personnel
+function personnel() {
+    getAllPersonnel();
+    insetPersoennl();
+    editPersonnel();
+}
+
+
+
 // Function to show all Data in Perosn Tablle
-function appendPersonelData(fName, lName, email, locName, deptName) {
+function personnelTablerecord(fName, lName, email, locName, deptName) {
     $('#tablePersonel').append(
 
         $("<tr>").append(
@@ -92,76 +170,6 @@ function appendPersonelData(fName, lName, email, locName, deptName) {
 
 
 }
-// Function to show all Data in Department Tablle
-const appenedDeptData = (deptName, locName) => {
-
-    $('#tableDepartment').append(
-        $('<tr>').append(
-            $("<td>").text(deptName),
-            $("<td>").text(locName),
-            $("<td>").html('<i class="fas fa-edit edit edit-dept"></i>'),
-            $("<td>").html('<i class="fas fa-trash-alt delete-dept"></i>')
-        )
-    );
-}
-
-// Function to show all Data in Location Table
-
-const appenedLocation = (locName) => {
-
-    $('#tableLocation').append(
-        $('<tr>').append(
-            $("<td>").text(locName),
-            $("<td>").html('<i class="fas fa-edit edit edit-location"></i>'),
-            $("<td>").html('<i class="fas fa-trash-alt delete-location"></i>')
-        )
-    )
-
-}
-
-
-//get All department
-function deptList() {
-    $('.departmentSel').empty();
-
-    $.ajax({
-        url: 'php/getAllDept.php',
-        type: 'POST',
-        datatype: 'json',
-        success: function (result, textStatus) {
-            if (textStatus == 'success') {
-                let jsondata = JSON.stringify(result);
-                let deptList = JSON.parse(jsondata);
-                // console.log(deptList);
-                $('.departmentSel').append('<option value="" selected="true" disabled>Choose a Department</option>');
-                deptList.forEach(function (d) {
-
-                    $('.departmentSel').append($('<option>', {
-                        value: d.id,
-                        text: d.name
-                    }));
-
-                });
-
-            }
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log(errorThrown, textStatus);
-        }
-
-    });
-}
-
-
-
-//Personnel
-
-function personnel() {
-    insetPersoennl();
-    editPersonnel();
-
-
-}
 //Insert Personal
 
 const insetPersoennl = () => {
@@ -173,10 +181,8 @@ const insetPersoennl = () => {
     $(insetPersoennl).click(function () {
         // console.log('person button clicked')
         $(personnelModal).show();
-
-
         //rest cod
-        deptList();
+        //   getAllDept();
 
     });
     $(cancelPersonnelInsert).click(function () {
@@ -206,40 +212,27 @@ const editPersonnel = () => {
 
 // Department
 
-function getAllLoc() {
-    $('.locationSel').empty();
 
-    $.ajax({
-        url: 'php/getAllLoc.php',
-        type: 'POST',
-        datatype: 'json',
-        success: function (result, textStatus) {
-            if (textStatus == 'success') {
-                let jsondata = JSON.stringify(result);
-                let locList = JSON.parse(jsondata);
-                //  console.log(locList);
-                $('.locationSel').append('<option value="" selected="true" disabled>Choose a Department</option>');
-                locList.forEach(function (l) {
-                    $('.locationSel').append($('<option>', {
-                        value: l.id,
-                        text: l.name
-                    }));
-                });
-            }
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log(errorThrown, textStatus);
-        }
-
-    });
-}
 
 
 function department() {
+    getAllDept();
     insertDepartment();
 }
 
+// Function to show all Data in Department Tablle
+const deptTableRecord = (dep, loc) => {
+    //  $('#tableDepartment').empty(); //
+    $('#tableDepartment').append(
+        $('<tr>').append(
+            $("<td>").text(dep),
+            $("<td>").text(loc),
+            $("<td>").html('<i class="fas fa-edit edit edit-dept"></i>'),
+            $("<td>").html('<i class="fas fa-trash-alt delete-dept"></i>')
+        )
+    );
 
+}
 function insertDepartment() {
     let insertDept = document.querySelector('#insertDepartment');
     let cancelDept = document.querySelector('.cancel-dept');
@@ -250,28 +243,39 @@ function insertDepartment() {
     $(insertDept).click(function () {
         //  console.log('i am clicked');
         $(deptModal).show();
+
+        // getAllLoc();
     });
 
     $(cancelDept).click(function () {
         $(deptModal).hide();
     });
 
-    getAllLoc();
+
 
 }
-
-
-
-
 
 
 
 // Location
 
 function location() {
+    getAllLoc();
     insertLocation();
 }
+// Function to show all Data in Location Table
 
+const locationTableRecord = (loc) => {
+
+    $('#tableLocation').append(
+        $('<tr>').append(
+            $("<td>").text(loc),
+            $("<td>").html('<i class="fas fa-edit edit edit-location"></i>'),
+            $("<td>").html('<i class="fas fa-trash-alt delete-location"></i>')
+        )
+    )
+
+}
 const insertLocation = () => {
 
     let locModal = document.querySelector('#locationCreate');

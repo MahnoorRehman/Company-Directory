@@ -21,7 +21,7 @@ if($stmt){
         $data=[
             'success'=> false,
             'message'=> 'No Department Available',
-            'data'=>$info
+            'data'=>$dataList
         ];
         mysqli_stmt_close($stmt);
         mysqli_close($con);
