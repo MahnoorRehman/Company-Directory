@@ -49,11 +49,12 @@ function getAllPersonnel() {
                     let fName = d.firstName;
                     let lName = d.lastName;
                     let email = d.email;
+                    let jobTitle = d.jobTitle;
                     deptName = d.department;
                     let locName = d.location;
                     // console.log(locName);
                     //  console.log(deptName);
-                    personnelTablerecord(fName, lName, email, deptName, locName);
+                    personnelTablerecord(fName, lName, email, jobTitle, deptName, locName);
 
 
                 });
@@ -68,6 +69,7 @@ function getAllPersonnel() {
 
 
 let loc;
+console.log(loc);
 //get All Location
 function getAllLoc() {
     $('.locationSel').empty();
@@ -85,7 +87,7 @@ function getAllLoc() {
                 locList.forEach(function (l) {
                     loc = l.name;
 
-                    //  console.log(loc);
+                    console.log(loc);
                     locationTableRecord(loc)
                     $('.locationSel').append($('<option>', {
                         value: l.id,
@@ -119,7 +121,7 @@ function getAllDept() {
                 deptList.forEach(function (d) {
                     let dep = d.name;
                     deptTableRecord(dep, loc);
-                    console.log(d.name);
+                    //console.log(d.name);
                     // deptTableRecord(dep, loc);
                     $('.departmentSel').append($('<option>', {
                         value: d.id,
@@ -145,11 +147,12 @@ function personnel() {
 
 
 // Function to show all Data in Perosn Tablle
-function personnelTablerecord(fName, lName, email, locName, deptName) {
+function personnelTablerecord(fName, lName, email, jobTitle, locName, deptName) {
     $('#tablePersonel').append(
 
         $("<tr>").append(
             $("<td>").text(fName + ", " + lName),
+            $("<td>").text(jobTitle),
             $("<td>").text(email),
             $("<td>").text(deptName),
             $("<td>").text(locName),
