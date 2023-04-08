@@ -87,7 +87,7 @@ function getAllLoc() {
                 locList.forEach(function (l) {
                     loc = l.name;
 
-                    console.log(loc);
+                    // console.log(loc);
                     locationTableRecord(loc)
                     $('.locationSel').append($('<option>', {
                         value: l.id,
@@ -184,10 +184,29 @@ const insetPersoennl = () => {
     $(insetPersoennl).click(function () {
         // console.log('person button clicked')
         $(personnelModal).show();
-        //rest cod
-        //   getAllDept();
+
+
+        $('#confirmPersCreate').click(function () {
+
+            $.ajax({
+                url: 'php/insertPersonnel.php',
+                type: 'POST',
+                datatype: 'json',
+                data: {
+                    firstName: titleCase($('#firstNameCreate').val()),
+                    lastName: titleCase($('#lastNameCreate').val()),
+                    jobTitle: titleCase($('#jobTitleCreate').val()),
+                    email: $('#emailCreate').val(),
+                    departmentID: $('#departmentSelInsert').val()
+
+                },
+            });
+        });
 
     });
+
+
+
     $(cancelPersonnelInsert).click(function () {
         // console.log('person button clicked')
         $(personnelModal).hide();
@@ -247,7 +266,9 @@ function insertDepartment() {
         //  console.log('i am clicked');
         $(deptModal).show();
 
-        // getAllLoc();
+
+        $('#confirmDepCreate')
+
     });
 
     $(cancelDept).click(function () {
