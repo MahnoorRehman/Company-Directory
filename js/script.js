@@ -9,6 +9,11 @@ $(window).on('load', function () { // makes sure the whole site is loaded
 
 
 let deptName;
+let loc;
+
+//as ko kha cal kr rhe ho ?
+
+
 
 $(document).ready(function () {
 
@@ -21,11 +26,18 @@ $(document).ready(function () {
         $("#searchModal").hide();
     });
 
+    //us variable ko start loading m value  mel rhe ha kia ?
+    //us variable ko vaue kb assign ho
+
 
     //  Personnel
     personnel();
-    department();
+
+    //ya wala method ku found ni kr par hra m  ya locatoon wla
     location();
+
+    department();
+
 });
 // $(document).on('click', '.edit-personel', function () {
 //     $('#personnelEdit').show();
@@ -55,8 +67,6 @@ function getAllPersonnel() {
                     // console.log(locName);
                     //  console.log(deptName);
                     personnelTablerecord(fName, lName, email, jobTitle, deptName, locName);
-
-
                 });
             }
         },
@@ -68,8 +78,7 @@ function getAllPersonnel() {
 }
 
 
-let loc;
-console.log(loc);
+
 //get All Location
 function getAllLoc() {
     $('.locationSel').empty();
@@ -86,8 +95,8 @@ function getAllLoc() {
                 $('.locationSel').append('<option value="" selected="true" disabled>Choose a Department</option>');
                 locList.forEach(function (l) {
                     loc = l.name;
-
-                    // console.log(loc);
+                    //yahan value milti hai or log  bhoti hai
+                    // console.log("Location", loc);
                     locationTableRecord(loc)
                     $('.locationSel').append($('<option>', {
                         value: l.id,
@@ -107,6 +116,7 @@ function getAllLoc() {
 //get All department
 function getAllDept() {
 
+    // console.log('Location value here', loc)
     $('.departmentSel').empty();
 
     $.ajax({
@@ -120,8 +130,11 @@ function getAllDept() {
                 $('.departmentSel').append('<option value="" selected="true" disabled>Choose a Department</option>');
                 deptList.forEach(function (d) {
                     let dep = d.name;
-                    deptTableRecord(dep, loc);
-                    //console.log(d.name);
+                    let depLoc = d.locationID;
+
+
+                    //  deptTableRecord(dep, loc);
+                    console.log(depLoc);
                     // deptTableRecord(dep, loc);
                     $('.departmentSel').append($('<option>', {
                         value: d.id,
@@ -137,8 +150,8 @@ function getAllDept() {
     });
 }
 
-//Personnel
-function personnel() {
+//Personnøel
+async function personnel() {
     getAllPersonnel();
     insetPersoennl();
     editPersonnel();
@@ -173,39 +186,44 @@ function personnelTablerecord(fName, lName, email, jobTitle, locName, deptName) 
 
 
 }
-//Insert Personal
 
-const insetPersoennl = () => {
+//Insert Personal
+let insetPersoennl = () => {
     let insetPersoennl = document.querySelector('#insertPersonnel');
     let cancelPersonnelInsert = document.querySelector('#cancelPersonnelInsert');
 
     let personnelModal = document.querySelector('#personnelCreate');
 
     $(insetPersoennl).click(function () {
-        // console.log('person button clicked')
+
+
+        console.log('person button clicked')
         $(personnelModal).show();
 
 
         $('#confirmPersCreate').click(function () {
 
+
+            console.log('Insert Method Executed')
+
             $.ajax({
-                url: 'php/insertPersonnel.php',
+                url: './php/insertPersonnel.php',
                 type: 'POST',
                 datatype: 'json',
                 data: {
-                    firstName: titleCase($('#firstNameCreate').val()),
-                    lastName: titleCase($('#lastNameCreate').val()),
-                    jobTitle: titleCase($('#jobTitleCreate').val()),
+                    firstName: $('#firstNameCreate').val(),
+                    lastName: $('#lastNameCreate').val(),
+                    jobTitle: $('#jobTitleCreate').val(),
                     email: $('#emailCreate').val(),
                     departmentID: $('#departmentSelInsert').val()
-
                 },
+                success: function (result) {
+                    alert(result.message);
+                }
             });
         });
 
     });
-
-
 
     $(cancelPersonnelInsert).click(function () {
         // console.log('person button clicked')
@@ -233,11 +251,7 @@ const editPersonnel = () => {
 
 
 // Department
-
-
-
-
-function department() {
+async function department() {
     getAllDept();
     insertDepartment();
 }
@@ -266,24 +280,36 @@ function insertDepartment() {
         //  console.log('i am clicked');
         $(deptModal).show();
 
-
-        $('#confirmDepCreate')
+        $('#confirmDepCreate').click(function () {
+            $.ajax({
+                url: 'php/insertDept.php',
+                datatype: 'json',
+                type: 'POST',
+                data: {
+                    name: $('#departmentCreateName').val(),
+                    locationID: $('#locationSelInsert').val(),
+                },
+                success: function (response) {
+                    alert(response.message);
+                },
+                error: function (xhr, status, error) {
+                    alert(xhr.responseText);
+                }
+            });
+        });
 
     });
 
     $(cancelDept).click(function () {
         $(deptModal).hide();
     });
-
-
-
 }
 
 
 
 // Location
 
-function location() {
+async function location() {
     getAllLoc();
     insertLocation();
 }
