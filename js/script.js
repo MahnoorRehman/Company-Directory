@@ -70,19 +70,7 @@ $(document).ready(function () {
             const sortType = rows[0].querySelectorAll("td")[column].getAttribute("data-type");
             const sortDirection = sort_asc ? 1 : -1;
 
-            // rows.sort((rowA, rowB) => {
-            //     const cellA = rowA.querySelectorAll("td")[column];
-            //     const cellB = rowB.querySelectorAll("td")[column];
-
-            //     switch (sortType) {
-            //         case "string":
-            //             return sortDirection * cellA.textContent.trim().localeCompare(cellB.textContent.trim());
-            //         case "number":
-            //             return sortDirection * (Number(cellA.textContent) - Number(cellB.textContent));
-            //         default:
-            //             return 0;
-            //     }
-            // });
+           
             rows.sort((rowA, rowB) => {
                 const cellA = rowA.querySelectorAll("td")[column];
                 const cellB = rowB.querySelectorAll("td")[column];
@@ -94,9 +82,6 @@ $(document).ready(function () {
             rows.forEach((row) => tbody.appendChild(row));
         }
     });
-
-
-
 });
 
 
