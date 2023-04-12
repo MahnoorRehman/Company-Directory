@@ -9,7 +9,9 @@ header('content-type:application/json; charset=UTF=8');
 
 include('conn.php');
 
-$query='SELECT * FROM department';
+$query='SELECT d.name, l.name as location FROM department d 
+ LEFT JOIN location l ON(l.ID=d.locationID) 
+ ORDER BY d.name, l.name';
 
 $stmt= mysqli_prepare($con, $query);
 $dataList=[];

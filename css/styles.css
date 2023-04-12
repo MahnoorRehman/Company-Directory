@@ -132,3 +132,20 @@ body {
     position: relative;
     top: 150px !important;
 }
+
+thead tr th {
+    cursor: pointer;
+}
+
+thead tr th:hover {
+    color: #fac33c;
+
+}
+
+thead tr th.active {
+    color: #fac33c;
+}
+
+thead tr th.active .icon-arrow {
+    color: #fac33c;
+}

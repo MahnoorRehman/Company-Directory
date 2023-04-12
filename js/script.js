@@ -9,7 +9,12 @@ $(window).on('load', function () { // makes sure the whole site is loaded
 
 
 let deptName;
-let loc;
+toastr.options = {
+    closeButton: true,
+    progressBar: true,
+    positionClass: 'toast-bottom-right',
+    timeOut: 2000 // set the timeOut option to 2000 milliseconds (2 seconds)
+};
 
 //as ko kha cal kr rhe ho ?
 
@@ -26,23 +31,73 @@ $(document).ready(function () {
         $("#searchModal").hide();
     });
 
-    //us variable ko start loading m value  mel rhe ha kia ?
-    //us variable ko vaue kb assign ho
-
-
     //  Personnel
     personnel();
-
-    //ya wala method ku found ni kr par hra m  ya locatoon wla
     location();
-
     department();
 
-});
-// $(document).on('click', '.edit-personel', function () {
-//     $('#personnelEdit').show();
 
-// });
+    const tables = document.querySelectorAll("table");
+
+    tables.forEach((table) => {
+        const table_rows = table.querySelectorAll("tbody tr");
+        const table_headings = table.querySelectorAll("thead th");
+
+        table_headings.forEach((head, i) => {
+            let sort_asc = true;
+            head.onclick = () => {
+                table_headings.forEach((h) => h.classList.remove("active"));
+                head.classList.add("active");
+
+                table.querySelectorAll("td").forEach((td) => td.classList.remove("active"));
+                table_rows.forEach((row) => {
+                    row.querySelectorAll("td")[i].classList.add("active");
+                });
+
+                table_headings.forEach((h) => h.classList.remove("asc", "desc"));
+                head.classList.toggle("asc", sort_asc);
+                head.classList.toggle("desc", !sort_asc);
+                sort_asc = !sort_asc;
+
+                sortTable(table, i, sort_asc);
+            };
+        });
+
+        function sortTable(table, column, sort_asc) {
+            const tbody = table.querySelector("tbody");
+            const rows = Array.from(tbody.querySelectorAll("tr"));
+
+            const sortType = rows[0].querySelectorAll("td")[column].getAttribute("data-type");
+            const sortDirection = sort_asc ? 1 : -1;
+
+            // rows.sort((rowA, rowB) => {
+            //     const cellA = rowA.querySelectorAll("td")[column];
+            //     const cellB = rowB.querySelectorAll("td")[column];
+
+            //     switch (sortType) {
+            //         case "string":
+            //             return sortDirection * cellA.textContent.trim().localeCompare(cellB.textContent.trim());
+            //         case "number":
+            //             return sortDirection * (Number(cellA.textContent) - Number(cellB.textContent));
+            //         default:
+            //             return 0;
+            //     }
+            // });
+            rows.sort((rowA, rowB) => {
+                const cellA = rowA.querySelectorAll("td")[column];
+                const cellB = rowB.querySelectorAll("td")[column];
+
+                return sortDirection * cellA.textContent.trim().localeCompare(cellB.textContent.trim());
+            });
+
+            tbody.innerHTML = "";
+            rows.forEach((row) => tbody.appendChild(row));
+        }
+    });
+
+
+
+});
 
 
 // function to show all records in a Person 
@@ -94,7 +149,7 @@ function getAllLoc() {
                 //  console.log(locList);
                 $('.locationSel').append('<option value="" selected="true" disabled>Choose a Department</option>');
                 locList.forEach(function (l) {
-                    loc = l.name;
+                    let loc = l.name;
                     //yahan value milti hai or log  bhoti hai
                     // console.log("Location", loc);
                     locationTableRecord(loc)
@@ -130,11 +185,9 @@ function getAllDept() {
                 $('.departmentSel').append('<option value="" selected="true" disabled>Choose a Department</option>');
                 deptList.forEach(function (d) {
                     let dep = d.name;
-                    let depLoc = d.locationID;
-
-
-                    //  deptTableRecord(dep, loc);
-                    console.log(depLoc);
+                    let depLoc = d.location;
+                    deptTableRecord(dep, depLoc);
+                    // console.log(depLoc);
                     // deptTableRecord(dep, loc);
                     $('.departmentSel').append($('<option>', {
                         value: d.id,
@@ -150,8 +203,23 @@ function getAllDept() {
     });
 }
 
+// Formet Input into Capital
+function uperCase(str) {
+
+    var splitStr = str.toLowerCase().split(' ');
+    //  console.log(splitStr);
+    for (var i = 0; i < splitStr.length; i++) {
+        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+        //    console.log(splitStr);
+    }
+    // console.log(splitStr);
+    return splitStr.join(' ');
+
+}
+
+
 //Personnøel
-async function personnel() {
+function personnel() {
     getAllPersonnel();
     insetPersoennl();
     editPersonnel();
@@ -187,6 +255,83 @@ function personnelTablerecord(fName, lName, email, jobTitle, locName, deptName) 
 
 }
 
+//making click linstner on edit
+//ni ho gaye 
+
+$(document).on("click", ".edit-personel", function () {
+    var row = $(this).closest("tr");
+    var fName = row.find("td:nth-child(1)").text();
+    var lName = fName.split(",")[1].trim();
+    fName = fName.split(",")[0].trim();
+    var jobTitle = row.find("td:nth-child(2)").text();
+    var email = row.find("td:nth-child(3)").text();
+    var deptName = row.find("td:nth-child(4)").text();
+    var locName = row.find("td:nth-child(5)").text();
+
+    // create the dialog box
+    var dialogBox = $("<div>").dialog({
+        autoOpen: false,
+        modal: true,
+        title: "Edit Personnel",
+        width: "500px",
+        buttons: {
+            "Save": function () {
+                // save the edited data
+                fName = $("#edit-fname").val().trim();
+                lName = $("#edit-lname").val().trim();
+                jobTitle = $("#edit-jobtitle").val().trim();
+                email = $("#edit-email").val().trim();
+                deptName = $("#edit-deptname").val().trim();
+                locName = $("#edit-locname").val().trim();
+
+                // update the row data
+                row.find("td:nth-child(1)").text(fName + ", " + lName);
+                row.find("td:nth-child(2)").text(jobTitle);
+                row.find("td:nth-child(3)").text(email);
+                row.find("td:nth-child(4)").text(deptName);
+                row.find("td:nth-child(5)").text(locName);
+
+                // close the dialog box
+                $(this).dialog("close");
+            },
+            "Cancel": function () {
+                // close the dialog box
+                $(this).dialog("close");
+            }
+        }
+    });
+
+    // populate the dialog box with the current data
+    dialogBox.append($("<label>").text("First Name:"));
+    dialogBox.append($("<input>").attr("type", "text").attr("id", "edit-fname").val(fName));
+    dialogBox.append($("<br>"));
+
+    dialogBox.append($("<label>").text("Last Name:"));
+    dialogBox.append($("<input>").attr("type", "text").attr("id", "edit-lname").val(lName));
+    dialogBox.append($("<br>"));
+
+    dialogBox.append($("<label>").text("Job Title:"));
+    dialogBox.append($("<input>").attr("type", "text").attr("id", "edit-jobtitle").val(jobTitle));
+    dialogBox.append($("<br>"));
+
+    dialogBox.append($("<label>").text("Email:"));
+    dialogBox.append($("<input>").attr("type", "text").attr("id", "edit-email").val(email));
+    dialogBox.append($("<br>"));
+
+    dialogBox.append($("<label>").text("Department Name:"));
+    dialogBox.append($("<input>").attr("type", "text").attr("id", "edit-deptname").val(deptName));
+    dialogBox.append($("<br>"));
+
+    dialogBox.append($("<label>").text("Location Name:"));
+    dialogBox.append($("<input>").attr("type", "text").attr("id", "edit-locname").val(locName));
+    dialogBox.append($("<br>"));
+
+
+    // open the dialog box
+    dialogBox.dialog("open");
+
+});
+
 //Insert Personal
 let insetPersoennl = () => {
     let insetPersoennl = document.querySelector('#insertPersonnel');
@@ -195,34 +340,46 @@ let insetPersoennl = () => {
     let personnelModal = document.querySelector('#personnelCreate');
 
     $(insetPersoennl).click(function () {
-
-
         console.log('person button clicked')
         $(personnelModal).show();
-
-
-        $('#confirmPersCreate').click(function () {
-
-
-            console.log('Insert Method Executed')
+        $('#persCreate').submit(function (event) {
+            event.preventDefault();
+            //console.log('Insert Method Executed');
+            let fName = uperCase($('#firstNameCreate').val());
+            let lName = uperCase($('#lastNameCreate').val());
+            let jobTitle = uperCase($('#jobTitleCreate').val());
+            let email = $('#emailCreate').val();
+            let dID = $('#departmentSelInsert').val();
+            //  console.log(fName, lName, email, dID);
 
             $.ajax({
                 url: './php/insertPersonnel.php',
                 type: 'POST',
                 datatype: 'json',
                 data: {
-                    firstName: $('#firstNameCreate').val(),
-                    lastName: $('#lastNameCreate').val(),
-                    jobTitle: $('#jobTitleCreate').val(),
-                    email: $('#emailCreate').val(),
-                    departmentID: $('#departmentSelInsert').val()
+                    firstName: fName,
+                    lastName: lName,
+                    jobTitle: jobTitle,
+                    email: email,
+                    departmentID: dID
                 },
                 success: function (result) {
-                    alert(result.message);
+                    //console.log('Success');
+                    // console.log(result.message);
+
+                    toastr.success(result.message);
+                    $(personnelModal).hide();
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1000);
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                    toastr.error('An error occurred while inserting location.');
                 }
             });
-        });
 
+        });
     });
 
     $(cancelPersonnelInsert).click(function () {
@@ -251,7 +408,7 @@ const editPersonnel = () => {
 
 
 // Department
-async function department() {
+function department() {
     getAllDept();
     insertDepartment();
 }
@@ -280,22 +437,32 @@ function insertDepartment() {
         //  console.log('i am clicked');
         $(deptModal).show();
 
-        $('#confirmDepCreate').click(function () {
+        $('#deptCreate').submit(function (event) {
+            event.preventDefault();
             $.ajax({
                 url: 'php/insertDept.php',
                 datatype: 'json',
                 type: 'POST',
                 data: {
-                    name: $('#departmentCreateName').val(),
+                    name: uperCase($('#departmentCreateName').val()),
                     locationID: $('#locationSelInsert').val(),
                 },
-                success: function (response) {
-                    alert(response.message);
+                success: function (result) {
+                    //console.log('Success');
+                    // console.log(result.message);
+
+                    toastr.success(result.message);
+                    $(deptModal).hide();
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1000);
                 },
                 error: function (xhr, status, error) {
-                    alert(xhr.responseText);
+                    console.log(error);
+                    toastr.error('An error occurred while inserting Department.');
                 }
             });
+            // return false;
         });
 
     });
@@ -324,7 +491,6 @@ const locationTableRecord = (loc) => {
             $("<td>").html('<i class="fas fa-trash-alt delete-location"></i>')
         )
     )
-
 }
 const insertLocation = () => {
 
@@ -335,6 +501,31 @@ const insertLocation = () => {
     $(insertLoc).click(function () {
         // console.log('i am clicked');
         $(locModal).show();
+
+        $('#locCreate').submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                url: 'php/insertLocation.php',
+                type: 'POST',
+                datatype: 'json',
+                data: {
+                    name: uperCase($('#locationCreateName').val())
+                },
+                success: function (result) {
+                    //console.log('Success');
+                    // console.log(result.message);
+                    toastr.success(result.message);
+                    $(locModal).hide();
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1000);
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                    toastr.error('An error occurred while inserting location.');
+                }
+            });
+        });
     });
 
     $(cancelLoc).click(function () {
