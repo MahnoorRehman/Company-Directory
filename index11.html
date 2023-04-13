@@ -4,14 +4,16 @@
 
 
 <!-- Mirrored from company-directory.danratcliffe.co.uk/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 01 Apr 2023 02:02:06 GMT -->
+
 <head>
         <title>Company Directory</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="A company directory that allows for the retrieval, creation, modification and deletion of staff, departments and locations">
+        <meta name="description"
+                content="A company directory that allows for the retrieval, creation, modification and deletion of staff, departments and locations">
         <meta name="author" content="Daniel Ratcliffe">
         <meta name="image" property="og:image" content="libs/img/thumbnail.png">
-        <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+        <link rel="icon" type="image/x-icon" href="favicon.ico" />
         <link rel="stylesheet" href="vendor/css/fontawesome/css/all.min.css">
         <link rel="stylesheet" href="vendor/css/bootstrap.min.css" media="all">
         <link rel="stylesheet" href="libs/css/main.css">
@@ -27,22 +29,34 @@
                 <div class="navbar justify-content-between navbar-dark bg-primary p-0" id="nav-tab" role="tablist">
                         <h1 class="ms-2 me-2"><i class="far fa-folder-open"></i>&nbsp;Company Directory</h1>
                         <div class="d-flex nav nav-tabs">
-                                <button class="nav-link mt-4 p2-5" id="nav-personnel-tab" data-bs-toggle="tab" data-bs-target="#nav-personnel" type="button" role="tab" aria-controls="nav-personnel" aria-selected="true">Personnel</button>
-                                <button class="nav-link mt-4 p2-5" id="nav-departments-tab" data-bs-toggle="tab" data-bs-target="#nav-departments" type="button" role="tab" aria-controls="nav-departments" aria-selected="false">Departments</button>
-                                <button class="nav-link mt-4 p2-5" id="nav-locations-tab" data-bs-toggle="tab" data-bs-target="#nav-locations" type="button" role="tab" aria-controls="nav-locations" aria-selected="false">Locations</button>
+                                <button class="nav-link mt-4 p2-5" id="nav-personnel-tab" data-bs-toggle="tab"
+                                        data-bs-target="#nav-personnel" type="button" role="tab"
+                                        aria-controls="nav-personnel" aria-selected="true">Personnel</button>
+                                <button class="nav-link mt-4 p2-5" id="nav-departments-tab" data-bs-toggle="tab"
+                                        data-bs-target="#nav-departments" type="button" role="tab"
+                                        aria-controls="nav-departments" aria-selected="false">Departments</button>
+                                <button class="nav-link mt-4 p2-5" id="nav-locations-tab" data-bs-toggle="tab"
+                                        data-bs-target="#nav-locations" type="button" role="tab"
+                                        aria-controls="nav-locations" aria-selected="false">Locations</button>
                         </div>
                 </div>
         </nav>
-       
+
         <!-- TAB PANES -->
         <div class="ps-2 pe-2">
                 <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show" id="nav-personnel" role="tabpanel" aria-labelledby="nav-personnel-tab">
+                        <div class="tab-pane fade show" id="nav-personnel" role="tabpanel"
+                                aria-labelledby="nav-personnel-tab">
                                 <div class="d-flex justify-content-between mt-3 mb-2">
-                                        <button id="insertPersonnel" class="btn btn-success align-self-start me-2"><span class="btnHide">Add Personnel&nbsp;&nbsp;</span><i class="fas fa-plus-circle"></i></button>
+                                        <button id="insertPersonnel" class="btn btn-success align-self-start me-2"><span
+                                                        class="btnHide">Add Personnel&nbsp;&nbsp;</span><i
+                                                        class="fas fa-plus-circle"></i></button>
                                         <div class="input-group mb-2 add-search">
-                                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
-                                                <input id="persSearch" type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1">
+                                                <span class="input-group-text" id="basic-addon1"><i
+                                                                class="fas fa-search"></i></span>
+                                                <input id="persSearch" type="text" class="form-control"
+                                                        placeholder="Search" aria-label="Search"
+                                                        aria-describedby="basic-addon1">
                                         </div>
                                 </div>
                                 <div class="table-responsive">
@@ -50,12 +64,19 @@
                                         <i class="fas fa-arrow-circle-up top-pers" title="return to top"></i>
                                 </div>
                         </div>
-                        <div class="tab-pane fade show" id="nav-departments" role="tabpanel" aria-labelledby="nav-departments-tab">
+                        <div class="tab-pane fade show" id="nav-departments" role="tabpanel"
+                                aria-labelledby="nav-departments-tab">
                                 <div class="d-flex justify-content-between mt-3 mb-2">
-                                        <button id="insertDepartment" class="btn btn-success align-self-start me-2"><span class="btnHide">Add Department&nbsp;&nbsp;</span><i class="fas fa-plus-circle"></i></button>
+                                        <button id="insertDepartment"
+                                                class="btn btn-success align-self-start me-2"><span class="btnHide">Add
+                                                        Department&nbsp;&nbsp;</span><i
+                                                        class="fas fa-plus-circle"></i></button>
                                         <div class="input-group mb-2 add-search">
-                                                <span class="input-group-text" id="basic-addon2"><i class="fas fa-search"></i></span>
-                                                <input id="deptSearch" type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1">
+                                                <span class="input-group-text" id="basic-addon2"><i
+                                                                class="fas fa-search"></i></span>
+                                                <input id="deptSearch" type="text" class="form-control"
+                                                        placeholder="Search" aria-label="Search"
+                                                        aria-describedby="basic-addon1">
                                         </div>
                                 </div>
                                 <div class="table-responsive">
@@ -63,12 +84,18 @@
                                         <i class="fas fa-arrow-circle-up top-dep" title="return to top"></i>
                                 </div>
                         </div>
-                        <div class="tab-pane fade show" id="nav-locations" role="tabpanel" aria-labelledby="nav-locations-tab">
+                        <div class="tab-pane fade show" id="nav-locations" role="tabpanel"
+                                aria-labelledby="nav-locations-tab">
                                 <div class="d-flex justify-content-between mt-3 mb-2">
-                                        <button id="insertLocation" class="btn btn-success align-self-start me-2"><span class="btnHide">Add Location&nbsp;&nbsp;</span><i class="fas fa-plus-circle"></i></button>
+                                        <button id="insertLocation" class="btn btn-success align-self-start me-2"><span
+                                                        class="btnHide">Add Location&nbsp;&nbsp;</span><i
+                                                        class="fas fa-plus-circle"></i></button>
                                         <div class="input-group mb-2 add-search">
-                                                <span class="input-group-text" id="basic-addon3"><i class="fas fa-search"></i></span>
-                                                <input id="locSearch" type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1">
+                                                <span class="input-group-text" id="basic-addon3"><i
+                                                                class="fas fa-search"></i></span>
+                                                <input id="locSearch" type="text" class="form-control"
+                                                        placeholder="Search" aria-label="Search"
+                                                        aria-describedby="basic-addon1">
                                         </div>
                                 </div>
                                 <div class="table-responsive">
@@ -82,45 +109,73 @@
         <!---------------------------------------------------- PERSONNEL ------------------------------------------------------>
 
         <!-- INSERT PERSONNEL -->
-        <div class="modal fade" id="personnelCreate" tabindex="-1" aria-labelledby="Create Personnel" aria-hidden="true">
+        <div class="modal fade" id="personnelCreate" tabindex="-1" aria-labelledby="Create Personnel"
+                aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content border-primary">
                                 <div class="modal-header">
                                         <h5 class="modal-title">Insert Personnel</h5>
-                                        <button type="button" class="btn-close btn-close-white" aria-label="Close" data-bs-dismiss="modal"></button>
+                                        <button type="button" class="btn-close btn-close-white" aria-label="Close"
+                                                data-bs-dismiss="modal"></button>
                                 </div>
                                 <form id="persCreate" method="post">
                                         <div class="modal-body">
                                                 <div class="input-group mb-1">
                                                         <span class="input-group-text w-25">First Name</span>
-                                                        <input required name="firstNameCreate" id="firstNameCreate" type="text" class="form-control" placeholder="John" aria-label="First Name" aria-describedby="basic-addon2" oninvalid="this.setCustomValidity('Please enter a first name')" oninput="this.setCustomValidity('')">
+                                                        <input required name="firstNameCreate" id="firstNameCreate"
+                                                                type="text" class="form-control" placeholder="John"
+                                                                aria-label="First Name" aria-describedby="basic-addon2"
+                                                                oninvalid="this.setCustomValidity('Please enter a first name')"
+                                                                oninput="this.setCustomValidity('')">
                                                 </div>
                                                 <div class="input-group mb-1">
                                                         <span class="input-group-text w-25">Last Name</span>
-                                                        <input required name="lastNameCreate" id="lastNameCreate" type="text" class="form-control" placeholder="Doe" aria-label="Last Name" aria-describedby="basic-addon2" oninvalid="this.setCustomValidity('Please enter a last name')" oninput="this.setCustomValidity('')">
+                                                        <input required name="lastNameCreate" id="lastNameCreate"
+                                                                type="text" class="form-control" placeholder="Doe"
+                                                                aria-label="Last Name" aria-describedby="basic-addon2"
+                                                                oninvalid="this.setCustomValidity('Please enter a last name')"
+                                                                oninput="this.setCustomValidity('')">
                                                 </div>
                                                 <div class="input-group mb-1">
                                                         <span class="input-group-text w-25">Job Title</span>
-                                                        <input required name="jobTitleCreate" id="jobTitleCreate" type="text" class="form-control" placeholder="Programmer" aria-label="Job Title" aria-describedby="basic-addon2" oninvalid="this.setCustomValidity('Please enter a job title')" oninput="this.setCustomValidity('')">
+                                                        <input required name="jobTitleCreate" id="jobTitleCreate"
+                                                                type="text" class="form-control"
+                                                                placeholder="Programmer" aria-label="Job Title"
+                                                                aria-describedby="basic-addon2"
+                                                                oninvalid="this.setCustomValidity('Please enter a job title')"
+                                                                oninput="this.setCustomValidity('')">
                                                 </div>
                                                 <div class="input-group mb-1">
                                                         <span class="input-group-text w-25">Email</span>
-                                                        <input required name="emailCreate" id="emailCreate" type="email" class="form-control" placeholder="john.doe@email.com" aria-label="Email" aria-describedby="basic-addon2" oninvalid="this.setCustomValidity('Please enter a valid email which includes &quot;@&quot;')" oninput="this.setCustomValidity('')">
+                                                        <input required name="emailCreate" id="emailCreate" type="email"
+                                                                class="form-control" placeholder="john.doe@email.com"
+                                                                aria-label="Email" aria-describedby="basic-addon2"
+                                                                oninvalid="this.setCustomValidity('Please enter a valid email which includes &quot;@&quot;')"
+                                                                oninput="this.setCustomValidity('')">
                                                 </div>
                                                 <div class="input-group mb-1">
                                                         <span class="input-group-text w-25">Department</span>
-                                                        <select required name="departmentSel" class="form-select departmentSel" id="departmentSelInsert" placeholder='Choose a Department' aria-label="Default select example" oninvalid="this.setCustomValidity('Please select a department')" oninput="this.setCustomValidity('')"></select>
+                                                        <select required name="departmentSel"
+                                                                class="form-select departmentSel"
+                                                                id="departmentSelInsert"
+                                                                placeholder='Choose a Department'
+                                                                aria-label="Default select example"
+                                                                oninvalid="this.setCustomValidity('Please select a department')"
+                                                                oninput="this.setCustomValidity('')"></select>
                                                 </div>
                                                 <div class="mt-3">
-                                                        <input required class="form-check-input" type="checkbox" value="" id="personCheck" >
+                                                        <input required class="form-check-input" type="checkbox"
+                                                                value="" id="personCheck">
                                                         <label class="form-check-label" for="personCheck">
                                                                 Confirm Inputs
                                                         </label>
                                                 </div>
                                         </div>
                                         <div class="modal-footer d-flex justify-content-around">
-                                                <button type="submit" disabled class="btn btn-success double" id="confirmPersCreate">Insert</button>
-                                                <button type="button" class="btn btn-warning double" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" disabled class="btn btn-success double"
+                                                        id="confirmPersCreate">Insert</button>
+                                                <button type="button" class="btn btn-warning double"
+                                                        data-bs-dismiss="modal">Cancel</button>
                                         </div>
                                 </form>
                         </div>
@@ -134,40 +189,64 @@
                         <div class="modal-content border-primary">
                                 <div class="modal-header">
                                         <h5 class="modal-title">Edit&nbsp;<span class="persName"></span></h5>
-                                        <button type="button" class="btn-close btn-close-white" aria-label="Close" data-bs-dismiss="modal"></button>
+                                        <button type="button" class="btn-close btn-close-white" aria-label="Close"
+                                                data-bs-dismiss="modal"></button>
                                 </div>
                                 <form id="persUpdate" method="post">
                                         <div class="modal-body">
                                                 <div class="input-group mb-1">
                                                         <span class="input-group-text w-25">First Name</span>
-                                                        <input required name="firstName" id="firstName" type="text" class="form-control" placeholder="First Name" aria-label="First Name" aria-describedby="basic-addon2" oninvalid="this.setCustomValidity('Please enter a first name')" oninput="this.setCustomValidity('')">
+                                                        <input required name="firstName" id="firstName" type="text"
+                                                                class="form-control" placeholder="First Name"
+                                                                aria-label="First Name" aria-describedby="basic-addon2"
+                                                                oninvalid="this.setCustomValidity('Please enter a first name')"
+                                                                oninput="this.setCustomValidity('')">
                                                 </div>
                                                 <div class="input-group mb-1">
                                                         <span class="input-group-text w-25">Last Name</span>
-                                                        <input required name="lastName" id="lastName" type="text" class="form-control" placeholder="Last Name" aria-label="Last Name" aria-describedby="basic-addon2" oninvalid="this.setCustomValidity('Please enter a last name')" oninput="this.setCustomValidity('')">
+                                                        <input required name="lastName" id="lastName" type="text"
+                                                                class="form-control" placeholder="Last Name"
+                                                                aria-label="Last Name" aria-describedby="basic-addon2"
+                                                                oninvalid="this.setCustomValidity('Please enter a last name')"
+                                                                oninput="this.setCustomValidity('')">
                                                 </div>
                                                 <div class="input-group mb-1">
                                                         <span class="input-group-text w-25">Job Title</span>
-                                                        <input required name="jobTitle" id="jobTitle" type="text" class="form-control" placeholder="Job Title" aria-label="Job Title" aria-describedby="basic-addon2" oninvalid="this.setCustomValidity('Please enter a job title')" oninput="this.setCustomValidity('')">
+                                                        <input required name="jobTitle" id="jobTitle" type="text"
+                                                                class="form-control" placeholder="Job Title"
+                                                                aria-label="Job Title" aria-describedby="basic-addon2"
+                                                                oninvalid="this.setCustomValidity('Please enter a job title')"
+                                                                oninput="this.setCustomValidity('')">
                                                 </div>
                                                 <div class="input-group mb-1">
                                                         <span class="input-group-text w-25">Email</span>
-                                                        <input required name="email" id="email" type="email" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon2" oninvalid="this.setCustomValidity('Please enter a valid email which includes &quot;@&quot;')" oninput="this.setCustomValidity('')">
+                                                        <input required name="email" id="email" type="email"
+                                                                class="form-control" placeholder="Email"
+                                                                aria-label="Email" aria-describedby="basic-addon2"
+                                                                oninvalid="this.setCustomValidity('Please enter a valid email which includes &quot;@&quot;')"
+                                                                oninput="this.setCustomValidity('')">
                                                 </div>
                                                 <div class="input-group mb-1">
                                                         <span class="input-group-text w-25">Department</span>
-                                                        <select required name="departmentSel" class="form-select departmentSel" id="departmentSelEdit" aria-label="Default select example" oninvalid="this.setCustomValidity('Please select a department')" oninput="this.setCustomValidity('')"></select>
+                                                        <select required name="departmentSel"
+                                                                class="form-select departmentSel" id="departmentSelEdit"
+                                                                aria-label="Default select example"
+                                                                oninvalid="this.setCustomValidity('Please select a department')"
+                                                                oninput="this.setCustomValidity('')"></select>
                                                 </div>
                                                 <div class="mt-3">
-                                                        <input required class="form-check-input" type="checkbox" value="" id="personUpd" >
+                                                        <input required class="form-check-input" type="checkbox"
+                                                                value="" id="personUpd">
                                                         <label class="form-check-label" for="personUpd">
                                                                 Confirm Updates
                                                         </label>
                                                 </div>
                                         </div>
                                         <div class="modal-footer d-flex justify-content-around">
-                                                <button type="submit" disabled class="btn btn-success double" id="confirmPersEdit">Save</button>
-                                                <button type="button" class="btn btn-warning double" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" disabled class="btn btn-success double"
+                                                        id="confirmPersEdit">Save</button>
+                                                <button type="button" class="btn btn-warning double"
+                                                        data-bs-dismiss="modal">Cancel</button>
                                         </div>
                                 </form>
                         </div>
@@ -182,14 +261,18 @@
                                 <form id="persDelete" method="post">
                                         <div class="modal-header">
                                                 <h5 class="modal-title">Delete&nbsp;<span class="persName"></span></h5>
-                                                <button type="button" class="btn-close btn-close-white" aria-label="Close" data-bs-dismiss="modal"></button>
+                                                <button type="button" class="btn-close btn-close-white"
+                                                        aria-label="Close" data-bs-dismiss="modal"></button>
                                         </div>
                                         <div class="modal-body">
-                                                <p class="text-center mb-0">Are you sure you want to delete <span class="persName"></span>?</p>
+                                                <p class="text-center mb-0">Are you sure you want to delete <span
+                                                                class="persName"></span>?</p>
                                         </div>
                                         <div class="modal-footer d-flex justify-content-around">
-                                                <button type="submit" id="confirmPersDel" class="btn btn-danger double" data-bs-dismiss="modal">Delete</button>
-                                                <button type="button" class="btn btn-warning double" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" id="confirmPersDel" class="btn btn-danger double"
+                                                        data-bs-dismiss="modal">Delete</button>
+                                                <button type="button" class="btn btn-warning double"
+                                                        data-bs-dismiss="modal">Cancel</button>
                                         </div>
                                 </form>
                         </div>
@@ -199,33 +282,48 @@
         <!---------------------------------------------------- DEPARTMENT ------------------------------------------------------>
 
         <!-- INSERT DEPARTMENT -->
-        <div class="modal fade" id="departmentCreate" tabindex="-1" aria-labelledby="Create Department" aria-hidden="true">
+        <div class="modal fade" id="departmentCreate" tabindex="-1" aria-labelledby="Create Department"
+                aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content border-primary">
                                 <div class="modal-header">
                                         <h5 class="modal-title">Insert Department</h5>
-                                        <button type="button" class="btn-close btn-close-white" aria-label="Close" data-bs-dismiss="modal"></button>
+                                        <button type="button" class="btn-close btn-close-white" aria-label="Close"
+                                                data-bs-dismiss="modal"></button>
                                 </div>
                                 <form id="deptCreate" method="post">
                                         <div class="modal-body">
                                                 <div class="input-group mb-1">
                                                         <span class="input-group-text w-25">Department</span>
-                                                        <input required name="department" id="departmentCreateName" type="text" class="form-control" placeholder="Public Relations" aria-label="Create Department" aria-describedby="basic-addon2" oninvalid="this.setCustomValidity('Please enter a department name')" oninput="this.setCustomValidity('')">
+                                                        <input required name="department" id="departmentCreateName"
+                                                                type="text" class="form-control"
+                                                                placeholder="Public Relations"
+                                                                aria-label="Create Department"
+                                                                aria-describedby="basic-addon2"
+                                                                oninvalid="this.setCustomValidity('Please enter a department name')"
+                                                                oninput="this.setCustomValidity('')">
                                                 </div>
                                                 <div class="input-group mb-1">
                                                         <span class="input-group-text w-25">Location</span>
-                                                        <select required name="locationSel" id="locationSelInsert" class="form-select locationSel" aria-label="Default select example" oninvalid="this.setCustomValidity('Please select a location')" oninput="this.setCustomValidity('')"></select>
+                                                        <select required name="locationSel" id="locationSelInsert"
+                                                                class="form-select locationSel"
+                                                                aria-label="Default select example"
+                                                                oninvalid="this.setCustomValidity('Please select a location')"
+                                                                oninput="this.setCustomValidity('')"></select>
                                                 </div>
                                                 <div class="mt-3">
-                                                        <input required class="form-check-input" type="checkbox" value="" id="deptCheck" >
+                                                        <input required class="form-check-input" type="checkbox"
+                                                                value="" id="deptCheck">
                                                         <label class="form-check-label" for="deptCheck">
                                                                 Confirm Inputs
                                                         </label>
                                                 </div>
                                         </div>
                                         <div class="modal-footer d-flex justify-content-around">
-                                                <button type="submit" disabled class="btn btn-success double" id="confirmDepCreate">Insert</button>
-                                                <button type="button" class="btn btn-warning double" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" disabled class="btn btn-success double"
+                                                        id="confirmDepCreate">Insert</button>
+                                                <button type="button" class="btn btn-warning double"
+                                                        data-bs-dismiss="modal">Cancel</button>
                                         </div>
                                 </form>
                         </div>
@@ -233,33 +331,47 @@
         </div>
 
         <!-- UPDATE DEPARTMENT -->
-        <div class="modal fade" id="departmentEdit" tabindex="-1" aria-labelledby="Update Department" aria-hidden="true">
+        <div class="modal fade" id="departmentEdit" tabindex="-1" aria-labelledby="Update Department"
+                aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content border-primary">
                                 <div class="modal-header">
                                         <h5 class="modal-title">Edit&nbsp;<span class="depName"></span></h5>
-                                        <button type="button" class="btn-close btn-close-white" aria-label="Close" data-bs-dismiss="modal"></button>
+                                        <button type="button" class="btn-close btn-close-white" aria-label="Close"
+                                                data-bs-dismiss="modal"></button>
                                 </div>
                                 <form id="depUpdate" method="post">
                                         <div class="modal-body">
                                                 <div class="input-group mb-1">
                                                         <span class="input-group-text w-25">Department</span>
-                                                        <input required name="department" id="department" type="text" class="form-control" placeholder="Public Relations" aria-label="Update Department" aria-describedby="basic-addon2" oninvalid="this.setCustomValidity('Please enter a department name')" oninput="this.setCustomValidity('')">
+                                                        <input required name="department" id="department" type="text"
+                                                                class="form-control" placeholder="Public Relations"
+                                                                aria-label="Update Department"
+                                                                aria-describedby="basic-addon2"
+                                                                oninvalid="this.setCustomValidity('Please enter a department name')"
+                                                                oninput="this.setCustomValidity('')">
                                                 </div>
                                                 <div class="input-group mb-1">
                                                         <span class="input-group-text w-25">Location</span>
-                                                        <select required name="locationSel" id="locationSelEdit" class="form-select locationSel" aria-label="Default select example" oninvalid="this.setCustomValidity('Please select a location')" oninput="this.setCustomValidity('')"></select>
+                                                        <select required name="locationSel" id="locationSelEdit"
+                                                                class="form-select locationSel"
+                                                                aria-label="Default select example"
+                                                                oninvalid="this.setCustomValidity('Please select a location')"
+                                                                oninput="this.setCustomValidity('')"></select>
                                                 </div>
                                                 <div class="mt-3">
-                                                        <input required class="form-check-input" type="checkbox" value="" id="depUpd" >
+                                                        <input required class="form-check-input" type="checkbox"
+                                                                value="" id="depUpd">
                                                         <label class="form-check-label" for="depUpd">
                                                                 Confirm Updates
                                                         </label>
                                                 </div>
                                         </div>
                                         <div class="modal-footer d-flex justify-content-around">
-                                                <button type="submit" disabled class="btn btn-success double" id="confirmDepEdit">Save</button>
-                                                <button type="button" class="btn btn-warning double" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" disabled class="btn btn-success double"
+                                                        id="confirmDepEdit">Save</button>
+                                                <button type="button" class="btn btn-warning double"
+                                                        data-bs-dismiss="modal">Cancel</button>
                                         </div>
                                 </form>
                         </div>
@@ -273,14 +385,18 @@
                                 <form id="depDelete" method="post">
                                         <div class="modal-header">
                                                 <h5 class="modal-title">Delete&nbsp;<span class="depName"></span></h5>
-                                                <button type="button" class="btn-close btn-close-white" aria-label="Close" data-bs-dismiss="modal"></button>
+                                                <button type="button" class="btn-close btn-close-white"
+                                                        aria-label="Close" data-bs-dismiss="modal"></button>
                                         </div>
                                         <div class="modal-body">
-                                                <p class="text-center mb-0">Are you sure you want to delete <span class="depName"></span>?</p>
+                                                <p class="text-center mb-0">Are you sure you want to delete <span
+                                                                class="depName"></span>?</p>
                                         </div>
                                         <div class="modal-footer d-flex justify-content-around">
-                                                <button type="submit" id="confirmDepDel" class="btn btn-danger double" data-bs-dismiss="modal">Delete</button>
-                                                <button type="button" class="btn btn-warning double" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" id="confirmDepDel" class="btn btn-danger double"
+                                                        data-bs-dismiss="modal">Delete</button>
+                                                <button type="button" class="btn btn-warning double"
+                                                        data-bs-dismiss="modal">Cancel</button>
                                         </div>
                                 </form>
                         </div>
@@ -288,31 +404,40 @@
         </div>
 
         <!---------------------------------------------------- LOCATION ------------------------------------------------------>
- 
+
         <!-- INSERT LOCATION -->
         <div class="modal fade" id="locationCreate" tabindex="-1" aria-labelledby="Create Location" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content border-primary">
                                 <div class="modal-header">
                                         <h5 class="modal-title">Insert Location</h5>
-                                        <button type="button" class="btn-close btn-close-white" aria-label="Close" data-bs-dismiss="modal"></button>
+                                        <button type="button" class="btn-close btn-close-white" aria-label="Close"
+                                                data-bs-dismiss="modal"></button>
                                 </div>
                                 <form id="locCreate" method="post">
                                         <div class="modal-body">
                                                 <div class="input-group mb-1">
                                                         <span class="input-group-text w-25">Location</span>
-                                                        <input required name="location" id="locationCreateName" type="text" class="form-control" placeholder="Seoul" aria-label="Create Location" aria-describedby="basic-addon2" oninvalid="this.setCustomValidity('Please enter a location name')" oninput="this.setCustomValidity('')">
+                                                        <input required name="location" id="locationCreateName"
+                                                                type="text" class="form-control" placeholder="Seoul"
+                                                                aria-label="Create Location"
+                                                                aria-describedby="basic-addon2"
+                                                                oninvalid="this.setCustomValidity('Please enter a location name')"
+                                                                oninput="this.setCustomValidity('')">
                                                 </div>
                                                 <div class="mt-3">
-                                                        <input required class="form-check-input" type="checkbox" value="" id="locCheck" >
+                                                        <input required class="form-check-input" type="checkbox"
+                                                                value="" id="locCheck">
                                                         <label class="form-check-label" for="locCheck">
                                                                 Confirm Input
                                                         </label>
                                                 </div>
                                         </div>
                                         <div class="modal-footer d-flex justify-content-around">
-                                                <button type="submit" disabled class="btn btn-success double" id="confirmLocCreate">Insert</button>
-                                                <button type="button" class="btn btn-warning double" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" disabled class="btn btn-success double"
+                                                        id="confirmLocCreate">Insert</button>
+                                                <button type="button" class="btn btn-warning double"
+                                                        data-bs-dismiss="modal">Cancel</button>
                                         </div>
                                 </form>
                         </div>
@@ -325,24 +450,33 @@
                         <div class="modal-content border-primary">
                                 <div class="modal-header">
                                         <h5 class="modal-title">Edit&nbsp;<span class="locName"></span></h5>
-                                        <button type="button" class="btn-close btn-close-white" aria-label="Close" data-bs-dismiss="modal"></button>
+                                        <button type="button" class="btn-close btn-close-white" aria-label="Close"
+                                                data-bs-dismiss="modal"></button>
                                 </div>
                                 <form id="locUpdate" method="post">
                                         <div class="modal-body">
                                                 <div class="input-group mb-1">
                                                         <span class="input-group-text w-25">Location</span>
-                                                        <input required name="location" id="location" type="text" class="form-control" placeholder="Seoul" aria-label="Update Location" aria-describedby="basic-addon2" oninvalid="this.setCustomValidity('Please enter a location name')" oninput="this.setCustomValidity('')">
+                                                        <input required name="location" id="location" type="text"
+                                                                class="form-control" placeholder="Seoul"
+                                                                aria-label="Update Location"
+                                                                aria-describedby="basic-addon2"
+                                                                oninvalid="this.setCustomValidity('Please enter a location name')"
+                                                                oninput="this.setCustomValidity('')">
                                                 </div>
                                                 <div class="mt-3">
-                                                        <input required class="form-check-input" type="checkbox" value="" id="locUpd" >
+                                                        <input required class="form-check-input" type="checkbox"
+                                                                value="" id="locUpd">
                                                         <label class="form-check-label" for="locUpd">
                                                                 Confirm Update
                                                         </label>
                                                 </div>
                                         </div>
                                         <div class="modal-footer d-flex justify-content-around">
-                                                <button type="submit" disabled class="btn btn-success double" id="confirmLocEdit">Save</button>
-                                                <button type="button" class="btn btn-warning double" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" disabled class="btn btn-success double"
+                                                        id="confirmLocEdit">Save</button>
+                                                <button type="button" class="btn btn-warning double"
+                                                        data-bs-dismiss="modal">Cancel</button>
                                         </div>
                                 </form>
                         </div>
@@ -356,14 +490,18 @@
                                 <form id="locDelete" method="post">
                                         <div class="modal-header">
                                                 <h5 class="modal-title">Delete&nbsp;<span class="locName"></span></h5>
-                                                <button type="button" class="btn-close btn-close-white" aria-label="Close" data-bs-dismiss="modal"></button>
+                                                <button type="button" class="btn-close btn-close-white"
+                                                        aria-label="Close" data-bs-dismiss="modal"></button>
                                         </div>
                                         <div class="modal-body">
-                                                <p class="text-center mb-0">Are you sure you want to delete <span class="locName"></span>?</p>
+                                                <p class="text-center mb-0">Are you sure you want to delete <span
+                                                                class="locName"></span>?</p>
                                         </div>
                                         <div class="modal-footer d-flex justify-content-around">
-                                                <button type="submit" id="confirmLocDel" class="btn btn-danger double" data-bs-dismiss="modal">Delete</button>
-                                                <button type="button" class="btn btn-warning double" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" id="confirmLocDel" class="btn btn-danger double"
+                                                        data-bs-dismiss="modal">Delete</button>
+                                                <button type="button" class="btn btn-warning double"
+                                                        data-bs-dismiss="modal">Cancel</button>
                                         </div>
                                 </form>
                         </div>
@@ -376,5 +514,4 @@
 </body>
 
 
-<!-- Mirrored from company-directory.danratcliffe.co.uk/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 01 Apr 2023 02:02:08 GMT -->
 </html>
