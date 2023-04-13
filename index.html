@@ -137,7 +137,7 @@
                 </div>
                 <div class="table-responsive">
                     <table id='tablePersonel' class="table table-striped myTable">
-                        <thead class="table-person-head">
+                        <thead class="table-head">
                             <tr>
                                 <th scope="col">Name <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
                                 <th scope="col">JObTitle <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
@@ -166,7 +166,7 @@
                 </div>
                 <div class="table-responsive">
                     <table id='tableDepartment' class="table table-striped">
-                        <thead class="table-person-head">
+                        <thead class="table-head">
                             <tr>
 
                                 <th scope="col">Department <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
@@ -190,7 +190,7 @@
                 </div>
                 <div class="table-responsive">
                     <table id='tableLocation' class="table table-striped">
-                        <thead class="table-person-head">
+                        <thead class="table-head">
                             <tr>
                                 <th scope="col">Location <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
                                 <th scope="col">Edit</th>
@@ -198,10 +198,7 @@
                             </tr>
                         </thead>
                         <tbody>
-
                         </tbody>
-
-
                     </table>
                     <i class="fas fa-arrow-circle-up top-loc" title="return to top"></i>
                 </div>
@@ -218,13 +215,11 @@
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-primary">
-                <div class="modal-header">
-                    <h5 class="modal-title">Insert Personnel</h5>
-                    <button type="button" class="btn-close btn-close-white" aria-label="Close"
-                        data-bs-dismiss="modal"></button>
+                <div class="modal-header modal-heading">
+                    <h5 class="modal-title ">Insert Personnel</h5>
+                    <!-- <button type="button" class="btn-close btn-close-white" aria-label="Close"
+                        data-bs-dismiss="modal"></button> -->
                 </div>
-
-
                 <form id="persCreate" method="post">
                     <div class="modal-body">
                         <div class="input-group mb-1">
@@ -265,15 +260,11 @@
 
                             </select>
                         </div>
-                        <!-- <div class="mt-3">
-                            <input required class="form-check-input" type="checkbox" value="" id="personCheck">
-                            <label class="form-check-label" for="personCheck">
-                                Confirm Inputs
-                            </label>
-                        </div> -->
+
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
                         <button type="submit" class="btn search-btn double" id="confirmPersCreate">Insert</button>
+
                         <button type="button" class="btn btn-warning double" id="cancelPersonnelInsert"
                             data-bs-dismiss="modal">Cancel</button>
                     </div>
@@ -287,7 +278,7 @@
     <div class="modal fade" id="personnelEdit" tabindex="-1" aria-labelledby="Update Personnel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-primary">
-                <div class="modal-header">
+                <div class="modal-header modal-heading">
                     <h5 class="modal-title">Edit&nbsp;<span class="persName"></span></h5>
                     <button type="button" class="btn-close btn-close-white" aria-label="Close"
                         data-bs-dismiss="modal"></button>
@@ -329,15 +320,10 @@
                                 oninvalid="this.setCustomValidity('Please select a department')"
                                 oninput="this.setCustomValidity('')"></select>
                         </div>
-                        <div class="mt-3">
-                            <input required class="form-check-input" type="checkbox" value="" id="personUpd">
-                            <label class="form-check-label" for="personUpd">
-                                Confirm Updates
-                            </label>
-                        </div>
+
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
-                        <button type="submit" disabled class="btn btn-success double" id="confirmPersEdit">Save</button>
+                        <button type="submit" class="btn search-btn double" id="confirmPersEdit">Save</button>
                         <button type="button" class="btn btn-warning double" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </form>
@@ -351,7 +337,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-primary">
                 <form id="persDelete" method="post">
-                    <div class="modal-header">
+                    <div class="modal-header modal-heading">
                         <h5 class="modal-title">Delete&nbsp;<span class="persName"></span></h5>
                         <button type="button" class="btn-close btn-close-white" aria-label="Close"
                             data-bs-dismiss="modal"></button>
@@ -376,10 +362,10 @@
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-primary">
-                <div class="modal-header">
+                <div class="modal-header modal-heading">
                     <h5 class="modal-title">Insert Department</h5>
-                    <button type="button" class="btn-close btn-close-white" aria-label="Close"
-                        data-bs-dismiss="modal"></button>
+                    <!-- <button type="button" class="btn-close btn-close-white" aria-label="Close"
+                        data-bs-dismiss="modal"></button> -->
                 </div>
                 <form id="deptCreate" method="post">
                     <div class="modal-body">
@@ -419,7 +405,7 @@
     <div class="modal fade" id="departmentEdit" tabindex="-1" aria-labelledby="Update Department" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-primary">
-                <div class="modal-header">
+                <div class="modal-header modal-heading">
                     <h5 class="modal-title">Edit&nbsp;<span class="depName"></span></h5>
                     <button type="button" class="btn-close btn-close-white" aria-label="Close"
                         data-bs-dismiss="modal"></button>
@@ -441,15 +427,10 @@
                                 oninvalid="this.setCustomValidity('Please select a location')"
                                 oninput="this.setCustomValidity('')"></select>
                         </div>
-                        <div class="mt-3">
-                            <input required class="form-check-input" type="checkbox" value="" id="depUpd">
-                            <label class="form-check-label" for="depUpd">
-                                Confirm Updates
-                            </label>
-                        </div>
+
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
-                        <button type="submit" disabled class="btn btn-success double" id="confirmDepEdit">Save</button>
+                        <button type="submit" class="btn search-btn double" id="confirmDepEdit">Save</button>
                         <button type="button" class="btn btn-warning double" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </form>
@@ -462,7 +443,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-primary">
                 <form id="depDelete" method="post">
-                    <div class="modal-header">
+                    <div class="modal-header modal-heading">
                         <h5 class="modal-title">Delete&nbsp;<span class="depName"></span></h5>
                         <button type="button" class="btn-close btn-close-white" aria-label="Close"
                             data-bs-dismiss="modal"></button>
@@ -486,10 +467,10 @@
     <div class="modal fade show" id="locationCreate" tabindex="-1" aria-labelledby="Create Location" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-primary">
-                <div class="modal-header">
+                <div class="modal-header modal-heading">
                     <h5 class="modal-title">Insert Location</h5>
-                    <button type="button" class="btn-close btn-close-white" aria-label="Close"
-                        data-bs-dismiss="modal"></button>
+                    <!-- <button type="button" class="btn-close btn-close-white" aria-label="Close"
+                        data-bs-dismiss="modal"></button> -->
                 </div>
                 <form id="locCreate" method="post">
                     <div class="modal-body">
@@ -521,7 +502,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-primary">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit&nbsp;<span class="locName"></span></h5>
+                    <h5 class="modal-title modal-heading">Edit&nbsp;<span class="locName"></span></h5>
                     <button type="button" class="btn-close btn-close-white" aria-label="Close"
                         data-bs-dismiss="modal"></button>
                 </div>
@@ -534,15 +515,10 @@
                                 oninvalid="this.setCustomValidity('Please enter a location name')"
                                 oninput="this.setCustomValidity('')">
                         </div>
-                        <div class="mt-3">
-                            <input required class="form-check-input" type="checkbox" value="" id="locUpd">
-                            <label class="form-check-label" for="locUpd">
-                                Confirm Update
-                            </label>
-                        </div>
+
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
-                        <button type="submit" disabled class="btn btn-success double" id="confirmLocEdit">Save</button>
+                        <button type="submit" class="btn search-btn double" id="confirmLocEdit">Save</button>
                         <button type="button" class="btn btn-warning double" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </form>
@@ -555,7 +531,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-primary">
                 <form id="locDelete" method="post">
-                    <div class="modal-header">
+                    <div class="modal-header modal-heading">
                         <h5 class="modal-title">Delete&nbsp;<span class="locName"></span></h5>
                         <button type="button" class="btn-close btn-close-white" aria-label="Close"
                             data-bs-dismiss="modal"></button>

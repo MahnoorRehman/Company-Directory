@@ -113,7 +113,8 @@ body {
 
 
 
-.table-person-head {
+.table-head,
+.modal-heading {
     background-color: #113e6b;
     color: white;
 }
