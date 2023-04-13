@@ -70,7 +70,7 @@ $(document).ready(function () {
             const sortType = rows[0].querySelectorAll("td")[column].getAttribute("data-type");
             const sortDirection = sort_asc ? 1 : -1;
 
-           
+
             rows.sort((rowA, rowB) => {
                 const cellA = rowA.querySelectorAll("td")[column];
                 const cellB = rowB.querySelectorAll("td")[column];
@@ -108,6 +108,7 @@ function getAllPersonnel() {
                     //  console.log(deptName);
                     personnelTablerecord(fName, lName, email, jobTitle, deptName, locName);
                 });
+
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -132,7 +133,8 @@ function getAllLoc() {
                 let jsondata = JSON.stringify(result);
                 let locList = JSON.parse(jsondata);
                 //  console.log(locList);
-                $('.locationSel').append('<option value="" selected="true" disabled>Choose a Department</option>');
+                $('.locationSel').append(
+                    '<option value="" selected="true" disabled>Choose a Department</option>');
                 locList.forEach(function (l) {
                     let loc = l.name;
                     //yahan value milti hai or log  bhoti hai
@@ -223,8 +225,9 @@ function personnelTablerecord(fName, lName, email, jobTitle, locName, deptName) 
             $("<td>").text(deptName),
             $("<td>").text(locName),
             $("<td>").html('<i class="fas fa-edit edit edit-personel"></i>'),
-            $("<td>").html('<i class="fas fa-trash-alt delete-person"></i>')
+            $("<td>").html('<i class="fas fa-trash-alt delete-personel"></i>')
         )
+
 
         // "<tr>" +
         // "<td>" + fName + ", " + lName + "</td>" +
@@ -235,9 +238,8 @@ function personnelTablerecord(fName, lName, email, jobTitle, locName, deptName) 
         // "<td>" + "DI" + "</td>" +
         // +"</tr>"
     );
-
-
-
+    editPersonnel();
+    delPersonnel();
 }
 
 //making click linstner on edit
@@ -253,67 +255,7 @@ $(document).on("click", ".edit-personel", function () {
     var deptName = row.find("td:nth-child(4)").text();
     var locName = row.find("td:nth-child(5)").text();
 
-    // create the dialog box
-    var dialogBox = $("<div>").dialog({
-        autoOpen: false,
-        modal: true,
-        title: "Edit Personnel",
-        width: "500px",
-        buttons: {
-            "Save": function () {
-                // save the edited data
-                fName = $("#edit-fname").val().trim();
-                lName = $("#edit-lname").val().trim();
-                jobTitle = $("#edit-jobtitle").val().trim();
-                email = $("#edit-email").val().trim();
-                deptName = $("#edit-deptname").val().trim();
-                locName = $("#edit-locname").val().trim();
 
-                // update the row data
-                row.find("td:nth-child(1)").text(fName + ", " + lName);
-                row.find("td:nth-child(2)").text(jobTitle);
-                row.find("td:nth-child(3)").text(email);
-                row.find("td:nth-child(4)").text(deptName);
-                row.find("td:nth-child(5)").text(locName);
-
-                // close the dialog box
-                $(this).dialog("close");
-            },
-            "Cancel": function () {
-                // close the dialog box
-                $(this).dialog("close");
-            }
-        }
-    });
-
-    // populate the dialog box with the current data
-    dialogBox.append($("<label>").text("First Name:"));
-    dialogBox.append($("<input>").attr("type", "text").attr("id", "edit-fname").val(fName));
-    dialogBox.append($("<br>"));
-
-    dialogBox.append($("<label>").text("Last Name:"));
-    dialogBox.append($("<input>").attr("type", "text").attr("id", "edit-lname").val(lName));
-    dialogBox.append($("<br>"));
-
-    dialogBox.append($("<label>").text("Job Title:"));
-    dialogBox.append($("<input>").attr("type", "text").attr("id", "edit-jobtitle").val(jobTitle));
-    dialogBox.append($("<br>"));
-
-    dialogBox.append($("<label>").text("Email:"));
-    dialogBox.append($("<input>").attr("type", "text").attr("id", "edit-email").val(email));
-    dialogBox.append($("<br>"));
-
-    dialogBox.append($("<label>").text("Department Name:"));
-    dialogBox.append($("<input>").attr("type", "text").attr("id", "edit-deptname").val(deptName));
-    dialogBox.append($("<br>"));
-
-    dialogBox.append($("<label>").text("Location Name:"));
-    dialogBox.append($("<input>").attr("type", "text").attr("id", "edit-locname").val(locName));
-    dialogBox.append($("<br>"));
-
-
-    // open the dialog box
-    dialogBox.dialog("open");
 
 });
 
@@ -374,28 +316,29 @@ let insetPersoennl = () => {
 }
 
 //Edit Personnel
-
-
 const editPersonnel = () => {
 
-    // let editPersonnel = document.querySelector('.edit-personel');
-
-    // $('.edit-personel').click(function () {
-    //     // console.log('edit button clicked');
-    //     $('#personnelEdit').show();
-    // });
-
+    $('.edit-personel').click(function () {
+        //console.log('edit button clicked');
+        $('#personnelEdit').modal('show');
+    });
 
 }
 
 //Delete Pernonnel
-
+function delPersonnel() {
+    $('.delete-personel').click(function () {
+        // console.log('edit button clicked');
+        $('#personnelDel').modal('show');
+    });
+}
 
 
 // Department
 function department() {
     getAllDept();
     insertDepartment();
+
 }
 
 // Function to show all Data in Department Tablle
@@ -409,6 +352,9 @@ const deptTableRecord = (dep, loc) => {
             $("<td>").html('<i class="fas fa-trash-alt delete-dept"></i>')
         )
     );
+    editDeptartment();
+    delDepartment();
+
 
 }
 function insertDepartment() {
@@ -457,11 +403,27 @@ function insertDepartment() {
     });
 }
 
+function editDeptartment() {
+    $('.edit-dept').click(function () {
+        // console.log('edit button clicked');
+        $('#departmentEdit').modal('show');
+
+    });
+}
+
+function delDepartment() {
+    $('.delete-dept').click(function () {
+        // console.log('edit button clicked');
+        $('#departmentDel').modal('show');
+
+    });
+}
+
 
 
 // Location
 
-async function location() {
+function location() {
     getAllLoc();
     insertLocation();
 }
@@ -475,7 +437,11 @@ const locationTableRecord = (loc) => {
             $("<td>").html('<i class="fas fa-edit edit edit-location"></i>'),
             $("<td>").html('<i class="fas fa-trash-alt delete-location"></i>')
         )
-    )
+    );
+
+    editLocation();
+    delLocation();
+
 }
 const insertLocation = () => {
 
@@ -517,4 +483,19 @@ const insertLocation = () => {
         $(locModal).hide();
     })
 
+}
+
+const editLocation = () => {
+    $('.edit-location').click(function () {
+
+        // console.log('edit button clicked');
+        $('#locationEdit').modal('show');
+
+    });
+}
+const delLocation = () => {
+    $('.delete-location').click(function () {
+        // console.log('edit button clicked');
+        $('#locationDel').modal('show');
+    });
 }
