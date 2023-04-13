@@ -19,7 +19,6 @@ mysqli_stmt_bind_param($stmt, "sii", $name, $locationID,  $id);
 if($stmt){
     $result=mysqli_stmt_execute($stmt);
 
-
     if($result){
         $data=[
             'success'=>true,

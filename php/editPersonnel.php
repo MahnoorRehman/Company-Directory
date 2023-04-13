@@ -21,8 +21,6 @@ mysqli_stmt_bind_param($stmt, "ssssii", $firstName, $lastName, $jobTitle, $email
 
 if($stmt){
     $result=mysqli_stmt_execute($stmt);
-
-
     if($result){
         $data=[
             'success'=>true,
