@@ -62,7 +62,4 @@ if(isset($_POST['firstName']) && isset($_POST['lastName'])  && isset($_POST['job
     echo json_encode($data);
 }
 
-
-
-
 ?>

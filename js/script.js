@@ -108,7 +108,8 @@ function getAllPersonnel() {
                     //  console.log(deptName);
                     personnelTablerecord(fName, lName, email, jobTitle, deptName, locName);
                 });
-
+                editPersonnel();
+                delPersonnel();
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -209,7 +210,7 @@ function uperCase(str) {
 function personnel() {
     getAllPersonnel();
     insetPersoennl();
-    editPersonnel();
+    // editPersonnel();
 }
 
 
@@ -238,26 +239,13 @@ function personnelTablerecord(fName, lName, email, jobTitle, locName, deptName) 
         // "<td>" + "DI" + "</td>" +
         // +"</tr>"
     );
-    editPersonnel();
-    delPersonnel();
+
 }
 
 //making click linstner on edit
 //ni ho gaye 
 
-$(document).on("click", ".edit-personel", function () {
-    var row = $(this).closest("tr");
-    var fName = row.find("td:nth-child(1)").text();
-    var lName = fName.split(",")[1].trim();
-    fName = fName.split(",")[0].trim();
-    var jobTitle = row.find("td:nth-child(2)").text();
-    var email = row.find("td:nth-child(3)").text();
-    var deptName = row.find("td:nth-child(4)").text();
-    var locName = row.find("td:nth-child(5)").text();
 
-
-
-});
 
 //Insert Personal
 let insetPersoennl = () => {
@@ -267,7 +255,7 @@ let insetPersoennl = () => {
     let personnelModal = document.querySelector('#personnelCreate');
 
     $(insetPersoennl).click(function () {
-        console.log('person button clicked')
+        //  console.log('person button clicked')
         $(personnelModal).show();
         $('#persCreate').submit(function (event) {
             event.preventDefault();
@@ -318,9 +306,58 @@ let insetPersoennl = () => {
 //Edit Personnel
 const editPersonnel = () => {
 
-    $('.edit-personel').click(function () {
-        //console.log('edit button clicked');
+    // $('.edit-personel').click(function () {
+    //     //console.log('edit button clicked');
+    //     $('#personnelEdit').modal('show');
+    // });
+
+    $(document).on("click", ".edit-personel", function () {
+        var row = $(this).closest("tr");
+        let id = $(this).attr("id");
+        var fullName = row.find("td:nth-child(1)").text();
+        var lName = fullName.split(",")[1].trim();
+        let fName = fullName.split(",")[0].trim();
+        var jobTitle = row.find("td:nth-child(2)").text();
+        var email = row.find("td:nth-child(3)").text();
+
+        $('#firstName').val(fName);
+        $('#lastName').val(lName);
+        $('#jobTitle').val(jobTitle);
+        $('#email').val(email);
+        $('.persName').val(fullName);
         $('#personnelEdit').modal('show');
+        $("#persUpdate").submit(function (event) {
+            event.preventDefault();
+            // console.log('persc');
+            $.ajax({
+                url: 'php/editPersonnel.php',
+                type: 'POST',
+                datatype: 'json',
+                data: {
+                    id: id,
+                    firstName: uperCase($('#firstName').val()),
+                    lastName: uperCase($('#lastName').val()),
+                    jobTitle: uperCase($('#jobTitle').val()),
+                    email: $('#email').val(),
+                    departmentID: $('#departmentSelEdit').val(),
+                },
+                success: function (result) {
+
+                    console.log('Success');
+                    toastr.success(result.message);
+                    // $(personnelModal).hide();
+                    $('#personnelEdit').modal('hide');
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1000);
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+
+                    toastr.error('An error occurred while Editing Person.');
+                }
+            });
+        });
     });
 
 }
