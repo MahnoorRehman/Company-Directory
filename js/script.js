@@ -98,6 +98,7 @@ function getAllPersonnel() {
                 let finalData = JSON.parse(jsondata);
                 // console.log(finalData);
                 finalData.forEach(function (d) {
+                    let id = d.id;
                     let fName = d.firstName;
                     let lName = d.lastName;
                     let email = d.email;
@@ -106,7 +107,7 @@ function getAllPersonnel() {
                     let locName = d.location;
                     // console.log(locName);
                     //  console.log(deptName);
-                    personnelTablerecord(fName, lName, email, jobTitle, deptName, locName);
+                    personnelTablerecord(id, fName, lName, email, jobTitle, deptName, locName);
                 });
                 editPersonnel();
                 delPersonnel();
@@ -221,10 +222,12 @@ function personnel() {
 
 
 // Function to show all Data in Perosn Tablle
-function personnelTablerecord(fName, lName, email, jobTitle, locName, deptName) {
+function personnelTablerecord(id, fName, lName, email, jobTitle, locName, deptName) {
     $('#tablePersonel').append(
 
         $("<tr>").append(
+            $("<td style='display: none;'>").text(id),
+
             $("<td>").text(fName + ", " + lName),
             $("<td>").text(jobTitle),
             $("<td>").text(email),
@@ -318,10 +321,12 @@ const editPersonnel = () => {
 
     $(document).on("click", ".edit-personel", function () {
         var row = $(this).closest("tr");
-        let id = $(this).attr("id");
+
+        var id = row.attr("id");
+        console.log("id is" + id);
         var fullName = row.find("td:nth-child(1)").text();
         var lName = fullName.split(",")[1].trim();
-        let fName = fullName.split(",")[0].trim();
+        var fName = fullName.split(",")[0].trim();
         var jobTitle = row.find("td:nth-child(2)").text();
         var email = row.find("td:nth-child(3)").text();
 
@@ -331,37 +336,36 @@ const editPersonnel = () => {
         $('#email').val(email);
         $('.persName').val(fullName);
         $('#personnelEdit').modal('show');
-        $("#persUpdate").submit(function (event) {
-            event.preventDefault();
-            // console.log('persc');
-            $.ajax({
-                url: 'php/editPersonnel.php',
-                type: 'POST',
-                datatype: 'json',
-                data: {
-                    id: id,
-                    firstName: uperCase($('#firstName').val()),
-                    lastName: uperCase($('#lastName').val()),
-                    jobTitle: uperCase($('#jobTitle').val()),
-                    email: $('#email').val(),
-                    departmentID: $('#departmentSelEdit').val(),
-                },
-                success: function (result) {
+        $('#edit-personnel-id').val(id);
+    });
 
-                    console.log('Success');
-                    toastr.success(result.message);
-                    // $(personnelModal).hide();
-                    $('#personnelEdit').modal('hide');
-                    setTimeout(function () {
-                        window.location.reload();
-                    }, 1000);
-                },
-                error: function (xhr, status, error) {
-                    console.log(error);
-
-                    toastr.error('An error occurred while Editing Person.');
-                }
-            });
+    $("#persUpdate").submit(function (event) {
+        event.preventDefault();
+        var id = $('#edit-personnel-id').val();
+        $.ajax({
+            url: 'php/editPersonnel.php',
+            type: 'POST',
+            datatype: 'json',
+            data: {
+                id: id,
+                firstName: uperCase($('#firstName').val()),
+                lastName: uperCase($('#lastName').val()),
+                jobTitle: uperCase($('#jobTitle').val()),
+                email: $('#email').val(),
+                departmentID: $('#departmentSelEdit').val(),
+            },
+            success: function (result) {
+                console.log('Success');
+                toastr.success(result.message);
+                $('#personnelEdit').modal('hide');
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000);
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+                toastr.error('An error occurred while Editing Person.');
+            }
         });
     });
 

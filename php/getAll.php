@@ -8,10 +8,10 @@ header('content-type: application/json; charset=UTF=8');
 
 include('conn.php');
 
-$query='SELECT p.firstName, p.lastName, p.jobTitle, p.email, d.name as department, l.name as location 
+$query='SELECT p.id, p.firstName, p.lastName, p.jobTitle, p.email, d.name as department, l.name as location 
         from personnel p LEFT JOIN department d ON (d.Id=p.departmentId)
         LEFT JOIN location l ON(l.ID=d.locationID) 
-        ORDER BY p.lastName, p.firstName, d.name, l.name';
+        ORDER BY p.id, p.lastName, p.firstName, d.name, l.name';
 
 
 $stmt= mysqli_prepare($con, $query);
