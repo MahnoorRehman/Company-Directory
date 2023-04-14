@@ -146,6 +146,8 @@ function getAllLoc() {
                         text: l.name
                     }));
                 });
+                editLocation();
+                delLocation();
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -181,6 +183,8 @@ function getAllDept() {
                         value: d.id,
                         text: dep
                     }));
+                    editDeptartment();
+                    delDepartment();
                 });
             }
         },
@@ -189,6 +193,7 @@ function getAllDept() {
         }
 
     });
+
 }
 
 // Formet Input into Capital
@@ -376,6 +381,7 @@ function department() {
     getAllDept();
     insertDepartment();
 
+
 }
 
 // Function to show all Data in Department Tablle
@@ -389,8 +395,7 @@ const deptTableRecord = (dep, loc) => {
             $("<td>").html('<i class="fas fa-trash-alt delete-dept"></i>')
         )
     );
-    editDeptartment();
-    delDepartment();
+
 
 
 }
@@ -476,8 +481,7 @@ const locationTableRecord = (loc) => {
         )
     );
 
-    editLocation();
-    delLocation();
+
 
 }
 const insertLocation = () => {
