@@ -323,12 +323,12 @@ const editPersonnel = () => {
         var row = $(this).closest("tr");
 
         var id = row.attr("id");
-        console.log("id is" + id);
-        var fullName = row.find("td:nth-child(1)").text();
+        // console.log("id is" + id);
+        var fullName = row.find("td:nth-child(2)").text();
         var lName = fullName.split(",")[1].trim();
         var fName = fullName.split(",")[0].trim();
-        var jobTitle = row.find("td:nth-child(2)").text();
-        var email = row.find("td:nth-child(3)").text();
+        var jobTitle = row.find("td:nth-child(3)").text();
+        var email = row.find("td:nth-child(4)").text();
 
         $('#firstName').val(fName);
         $('#lastName').val(lName);
@@ -341,13 +341,15 @@ const editPersonnel = () => {
 
     $("#persUpdate").submit(function (event) {
         event.preventDefault();
-        var id = $('#edit-personnel-id').val();
+        var pId = $('#edit-personnel-id').val();
+        console.log(pId);
+
         $.ajax({
             url: 'php/editPersonnel.php',
             type: 'POST',
             datatype: 'json',
             data: {
-                id: id,
+                id: pId,
                 firstName: uperCase($('#firstName').val()),
                 lastName: uperCase($('#lastName').val()),
                 jobTitle: uperCase($('#jobTitle').val()),
