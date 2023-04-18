@@ -24,11 +24,11 @@ $(document).ready(function () {
 
 
     $("#btn-search").click(function () {
-        $("#searchModal").show();
+        // $("#searchModal").show();
     });
 
     $("#btn-close").click(function () {
-        $("#searchModal").hide();
+        //  $("#searchModal").hide();
     });
 
     //  Personnel
@@ -318,38 +318,44 @@ const editPersonnel = () => {
     //     //console.log('edit button clicked');
     //     $('#personnelEdit').modal('show');
     // });
+    let id;
 
     $(document).on("click", ".edit-personel", function () {
         var row = $(this).closest("tr");
 
-        var id = row.attr("id");
+        id = row.contents(':first-child').text();
+        console.log(id);
+
+
         // console.log("id is" + id);
         var fullName = row.find("td:nth-child(2)").text();
         var lName = fullName.split(",")[1].trim();
         var fName = fullName.split(",")[0].trim();
         var jobTitle = row.find("td:nth-child(3)").text();
         var email = row.find("td:nth-child(4)").text();
+        //  var dept = row.find("td:nth-child(5)").val();
+        //console.log(dept);
 
         $('#firstName').val(fName);
         $('#lastName').val(lName);
         $('#jobTitle').val(jobTitle);
         $('#email').val(email);
+        $('#departmentSelEdit').val(dept);
+
         $('.persName').val(fullName);
         $('#personnelEdit').modal('show');
-        $('#edit-personnel-id').val(id);
+        //  $('#edit-personnel-id').val(id);
     });
 
     $("#persUpdate").submit(function (event) {
-        event.preventDefault();
-        var pId = $('#edit-personnel-id').val();
-        console.log(pId);
+        //event.preventDefault();
 
         $.ajax({
             url: 'php/editPersonnel.php',
             type: 'POST',
             datatype: 'json',
             data: {
-                id: pId,
+                id: id,
                 firstName: uperCase($('#firstName').val()),
                 lastName: uperCase($('#lastName').val()),
                 jobTitle: uperCase($('#jobTitle').val()),
@@ -357,7 +363,7 @@ const editPersonnel = () => {
                 departmentID: $('#departmentSelEdit').val(),
             },
             success: function (result) {
-                console.log('Success');
+                //  console.log('Success');
                 toastr.success(result.message);
                 $('#personnelEdit').modal('hide');
                 setTimeout(function () {
