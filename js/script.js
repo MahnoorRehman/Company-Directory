@@ -324,27 +324,46 @@ const editPersonnel = () => {
         var row = $(this).closest("tr");
 
         id = row.contents(':first-child').text();
-        console.log(id);
+        //  console.log(id);
+
+        $.ajax({
+            url: 'php/getUserById.php',
+            type: 'POST',
+            datatype: 'json',
+            data: {
+                id: id,
+            },
+            success: function (result) {
+                // console.log(result);
+                var lName = result[0].lastName;
+                // console.log(lName);
+                var fName = result[0].firstName;
+                var jobTitle = result[0].jobTitle;
+                var email = result[0].email;
+                var dept = result[0].departmentID;
+                console.log(dept);
 
 
-        // console.log("id is" + id);
-        var fullName = row.find("td:nth-child(2)").text();
-        var lName = fullName.split(",")[1].trim();
-        var fName = fullName.split(",")[0].trim();
-        var jobTitle = row.find("td:nth-child(3)").text();
-        var email = row.find("td:nth-child(4)").text();
-        //  var dept = row.find("td:nth-child(5)").val();
-        //console.log(dept);
+                $('#firstName').val(fName);
+                $('#lastName').val(lName);
+                $('#jobTitle').val(jobTitle);
+                $('#email').val(email);
+                $('#deptSelEdit').val(dept);
 
-        $('#firstName').val(fName);
-        $('#lastName').val(lName);
-        $('#jobTitle').val(jobTitle);
-        $('#email').val(email);
-        $('#departmentSelEdit').val(dept);
+                // $('.persName').val(fullName);
+                $('#personnelEdit').modal('show');
+                //  $('#edit-personnel-id').val(id);
 
-        $('.persName').val(fullName);
-        $('#personnelEdit').modal('show');
-        //  $('#edit-personnel-id').val(id);
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+
+            }
+
+        });
+
+
+
     });
 
     $("#persUpdate").submit(function (event) {
@@ -360,7 +379,7 @@ const editPersonnel = () => {
                 lastName: uperCase($('#lastName').val()),
                 jobTitle: uperCase($('#jobTitle').val()),
                 email: $('#email').val(),
-                departmentID: $('#departmentSelEdit').val(),
+                departmentID: $('#deptSelEdit').val(),
             },
             success: function (result) {
                 //  console.log('Success');
