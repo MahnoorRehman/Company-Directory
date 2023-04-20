@@ -175,13 +175,15 @@ function getAllDept() {
                 let deptList = JSON.parse(jsondata);
                 $('.departmentSel').append('<option value="" selected="true" disabled>Choose a Department</option>');
                 deptList.forEach(function (d) {
+                    let id = d.id;
+                    // console.log(id)
                     let dep = d.name;
                     let depLoc = d.location;
                     deptTableRecord(dep, depLoc);
                     // console.log(depLoc);
                     // deptTableRecord(dep, loc);
                     $('.departmentSel').append($('<option>', {
-                        value: d.id,
+                        value: id,
                         text: dep
                     }));
                     editDeptartment();
@@ -342,14 +344,12 @@ const editPersonnel = () => {
                 var email = result[0].email;
                 var dept = result[0].departmentID;
                 console.log(dept);
-
-
                 $('#firstName').val(fName);
                 $('#lastName').val(lName);
                 $('#jobTitle').val(jobTitle);
                 $('#email').val(email);
                 $('#deptSelEdit').val(dept);
-
+                console.log($('#deptSelEdit').val(dept));
                 // $('.persName').val(fullName);
                 $('#personnelEdit').modal('show');
                 //  $('#edit-personnel-id').val(id);
@@ -357,13 +357,8 @@ const editPersonnel = () => {
             },
             error: function (xhr, status, error) {
                 console.log(error);
-
             }
-
         });
-
-
-
     });
 
     $("#persUpdate").submit(function (event) {
