@@ -216,15 +216,12 @@ function uperCase(str) {
 
 }
 
-
-//Personnøel
+/*----------------------------------Personnel-----------------------------*/
 function personnel() {
     getAllPersonnel();
     insetPersoennl();
     // editPersonnel();
 }
-
-
 
 // Function to show all Data in Perosn Tablle
 function personnelTablerecord(id, fName, lName, email, jobTitle, deptName, locName) {
@@ -430,7 +427,7 @@ function delPersonnel() {
 }
 
 
-// Department
+/*----------------------------------Department-----------------------------*/
 function department() {
     getAllDept();
     insertDepartment();
@@ -606,7 +603,7 @@ function delDepartment() {
 
 
 
-// Location
+/*----------------------------------Location-----------------------------*/
 
 function location() {
     getAllLoc();
