@@ -731,20 +731,14 @@ const editLocation = () => {
 
 }
 const delLocation = () => {
-    // $('.delete-location').click(function () {
-    //     // console.log('edit button clicked');
-    //     $('#locationDel').modal('show');
-    // });
-    let id;
 
+    let id;
     $(document).on('click', ".delete-location", function () {
         $('#locationDel').modal('show');
 
         let dltRow = $(this).closest("tr");
         // console.log(dltRow);
         id = dltRow.contents(':first-child').text();
-
-
     });
 
     $("#confirmLocDel").click(function (event) {
