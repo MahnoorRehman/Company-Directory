@@ -13,7 +13,7 @@ toastr.options = {
     closeButton: true,
     progressBar: true,
     positionClass: 'toast-bottom-right',
-    timeOut: 2000 // set the timeOut option to 2000 milliseconds (2 seconds)
+    // timeOut: 2000 // set the timeOut option to 2000 milliseconds (2 seconds)
 };
 
 //as ko kha cal kr rhe ho ?
@@ -136,16 +136,18 @@ function getAllLoc() {
                 let locList = JSON.parse(jsondata);
                 //  console.log(locList);
                 $('.locationSel').append(
-                    '<option value="" selected="true" disabled>Choose a Department</option>');
+                    '<option value="" selected="true" disabled>Choose a Location</option>');
                 locList.forEach(function (l) {
+
                     let loc = l.name;
-                    //yahan value milti hai or log  bhoti hai
+                    let locId = l.id;
                     // console.log("Location", loc);
-                    locationTableRecord(loc)
+
                     $('.locationSel').append($('<option>', {
-                        value: l.id,
-                        text: l.name
+                        value: locId,
+                        text: loc
                     }));
+                    locationTableRecord(locId, loc)
                 });
                 editLocation();
                 delLocation();
@@ -179,17 +181,18 @@ function getAllDept() {
                     // console.log(id)
                     let dep = d.name;
                     let depLoc = d.location;
-                    deptTableRecord(dep, depLoc);
+                    deptTableRecord(id, dep, depLoc);
                     // console.log(depLoc);
                     // deptTableRecord(dep, loc);
                     $('.departmentSel').append($('<option>', {
                         value: id,
                         text: dep
                     }));
-                    editDeptartment();
-                    delDepartment();
+
                 });
             }
+            editDeptartment();
+            delDepartment();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(errorThrown, textStatus);
@@ -224,7 +227,7 @@ function personnel() {
 
 
 // Function to show all Data in Perosn Tablle
-function personnelTablerecord(id, fName, lName, email, jobTitle, locName, deptName) {
+function personnelTablerecord(id, fName, lName, email, jobTitle, deptName, locName) {
     $('#tablePersonel').append(
 
         $("<tr>").append(
@@ -251,10 +254,6 @@ function personnelTablerecord(id, fName, lName, email, jobTitle, locName, deptNa
     );
 
 }
-
-//making click linstner on edit
-//ni ho gaye 
-
 
 
 //Insert Personal
@@ -324,10 +323,8 @@ const editPersonnel = () => {
 
     $(document).on("click", ".edit-personel", function () {
         var row = $(this).closest("tr");
-
         id = row.contents(':first-child').text();
         //  console.log(id);
-
         $.ajax({
             url: 'php/getUserById.php',
             type: 'POST',
@@ -343,17 +340,15 @@ const editPersonnel = () => {
                 var jobTitle = result[0].jobTitle;
                 var email = result[0].email;
                 var dept = result[0].departmentID;
-                console.log(dept);
+                //  console.log(dept);
                 $('#firstName').val(fName);
                 $('#lastName').val(lName);
                 $('#jobTitle').val(jobTitle);
                 $('#email').val(email);
-                $('#deptSelEdit').val(dept);
-                console.log($('#deptSelEdit').val(dept));
-                // $('.persName').val(fullName);
+                $('#departmentSelEdit').val(dept);
+                $('#persName').val(fName + lastName);
                 $('#personnelEdit').modal('show');
                 //  $('#edit-personnel-id').val(id);
-
             },
             error: function (xhr, status, error) {
                 console.log(error);
@@ -362,8 +357,7 @@ const editPersonnel = () => {
     });
 
     $("#persUpdate").submit(function (event) {
-        //event.preventDefault();
-
+        event.preventDefault();
         $.ajax({
             url: 'php/editPersonnel.php',
             type: 'POST',
@@ -374,7 +368,7 @@ const editPersonnel = () => {
                 lastName: uperCase($('#lastName').val()),
                 jobTitle: uperCase($('#jobTitle').val()),
                 email: $('#email').val(),
-                departmentID: $('#deptSelEdit').val(),
+                departmentID: $('#departmentSelEdit').val(),
             },
             success: function (result) {
                 //  console.log('Success');
@@ -395,10 +389,44 @@ const editPersonnel = () => {
 
 //Delete Pernonnel
 function delPersonnel() {
-    $('.delete-personel').click(function () {
-        // console.log('edit button clicked');
+    // $('.delete-personel').click(function () {
+    //     // console.log('edit button clicked');
+    //     $('#personnelDel').modal('show');
+    // });
+    let id;
+
+    $(document).on('click', ".delete-personel", function () {
         $('#personnelDel').modal('show');
+
+        let dltRow = $(this).closest("tr");
+        // console.log(dltRow);
+        id = dltRow.contents(':first-child').text();
+
     });
+
+    $("#confirmPersDel").click(function (event) {
+        // event.preventDefault();
+        $.ajax({
+            url: 'php/deletePerson.php',
+            type: 'POST',
+            datatype: 'json',
+            data: {
+                id: id
+            },
+            success: function (result) {
+                toastr.success(result.message);
+                $('#personnelDel').modal('hide');
+
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000);
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+                toastr.error('An error occurred while Deleting location.');
+            }
+        })
+    })
 }
 
 
@@ -411,19 +439,17 @@ function department() {
 }
 
 // Function to show all Data in Department Tablle
-const deptTableRecord = (dep, loc) => {
+const deptTableRecord = (id, dep, loc) => {
     //  $('#tableDepartment').empty(); //
     $('#tableDepartment').append(
         $('<tr>').append(
+            $("<td style='display: none;'>").text(id),
             $("<td>").text(dep),
             $("<td>").text(loc),
             $("<td>").html('<i class="fas fa-edit edit edit-dept"></i>'),
             $("<td>").html('<i class="fas fa-trash-alt delete-dept"></i>')
         )
     );
-
-
-
 }
 function insertDepartment() {
     let insertDept = document.querySelector('#insertDepartment');
@@ -472,19 +498,110 @@ function insertDepartment() {
 }
 
 function editDeptartment() {
-    $('.edit-dept').click(function () {
-        // console.log('edit button clicked');
-        $('#departmentEdit').modal('show');
+    // $('.edit-dept').click(function () {
+    //     // console.log('edit button clicked');
+    //     $('#departmentEdit').modal('show');
+    // });
+    let deptId;
+    let deptName;
+    let locationID;
+
+    $(document).on("click", ".edit-dept", function () {
+
+        let deptRow = $(this).closest("tr");
+        deptId = deptRow.contents(":first-child").text();
+        $.ajax({
+            url: 'php/getDeptById.php',
+            type: 'POST',
+            datatype: 'json',
+            data: {
+                id: deptId
+            },
+            success: function (result) {
+                deptName = result[0].name;
+                locationID = result[0].locationID;
+
+                $("#department").val(deptName);
+                $("#locationSelEdit").val(locationID);
+                $('#departmentEdit').modal('show');
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+                toastr.error('An error occurred while Editing Person.');
+            }
+        });
+    });
+
+    $("#depUpdate").submit(function (event) {
+        // event.preventDefault();
+        $.ajax({
+            url: 'php/editDept.php',
+            type: 'POST',
+            datatype: 'json',
+            data: {
+                id: deptId,
+                name: uperCase($('#department').val()),
+                locationID: $('#locationSelEdit').val(),
+            },
+            success: function (result) {
+
+                toastr.success(result.message);
+                $('#departmentEdit').modal('hide');
+
+                setTimeout(function () {
+                    // window.location.reload();
+                }, 1000);
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+                toastr.error('An error occurred while Editing Person.');
+            }
+        });
+
 
     });
 }
 
 function delDepartment() {
-    $('.delete-dept').click(function () {
-        // console.log('edit button clicked');
+    // $('.delete-dept').click(function () {
+    //     // console.log('edit button clicked');
+    //     $('#departmentDel').modal('show');
+    // });
+    let id;
+
+    $(document).on('click', ".delete-dept", function () {
         $('#departmentDel').modal('show');
 
+        let dltRow = $(this).closest("tr");
+        // console.log(dltRow);
+        id = dltRow.contents(':first-child').text();
+
+
     });
+
+    $("#confirmDepDel").click(function (event) {
+
+        $.ajax({
+            url: 'php/deleteDept.php',
+            type: 'POST',
+            datatype: 'json',
+            data: {
+                id: id
+            },
+            success: function (result) {
+                //console.log(result.message)
+                toastr.success(result.message);
+                $('#departmentDel').modal('hide');
+                setTimeout(function () {
+                    // window.location.reload();
+                }, 1000);
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+                toastr.error('An error occurred while inserting location.');
+            }
+        })
+    })
 }
 
 
@@ -497,10 +614,11 @@ function location() {
 }
 // Function to show all Data in Location Table
 
-const locationTableRecord = (loc) => {
+const locationTableRecord = (id, loc) => {
 
     $('#tableLocation').append(
         $('<tr>').append(
+            $("<td style='display: none;'>").text(id),
             $("<td>").text(loc),
             $("<td>").html('<i class="fas fa-edit edit edit-location"></i>'),
             $("<td>").html('<i class="fas fa-trash-alt delete-location"></i>')
@@ -521,7 +639,7 @@ const insertLocation = () => {
         $(locModal).show();
 
         $('#locCreate').submit(function (event) {
-            event.preventDefault();
+            // event.preventDefault();
             $.ajax({
                 url: 'php/insertLocation.php',
                 type: 'POST',
@@ -553,16 +671,102 @@ const insertLocation = () => {
 }
 
 const editLocation = () => {
-    $('.edit-location').click(function () {
+    // $('.edit-location').click(function () {
+    //     // console.log('edit button clicked');
+    //     $('#locationEdit').modal('show');
+    // });
+    let locId;
 
-        // console.log('edit button clicked');
-        $('#locationEdit').modal('show');
+    $(document).on("click", ".edit-location", function () {
+        var locRow = $(this).closest("tr");
+        locId = locRow.contents(':first-child').text();
+        //console.log(locId);
+        $.ajax({
+            url: 'php/getLocById.php',
+            type: 'POST',
+            datatype: 'json',
+            data: {
+                id: locId,
+            },
+            success: function (result) {
+                //console.log(result);
 
+                let locName = result[0].name;
+                //console.log(locName);
+                $("#location").val(locName);
+                $('#locationEdit').modal('show');
+                //  $('#edit-personnel-id').val(id);
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
     });
+
+    $("#locUpdate").submit(function (event) {
+        // event.preventDefault();
+        $.ajax({
+            url: 'php/editLocation.php',
+            type: 'POST',
+            datatype: 'json',
+            data: {
+                id: locId,
+                name: $('#location').val(),
+            },
+            success: function (result) {
+                //  console.log('Success');
+                toastr.success(result.message);
+                $('#locationEdit').modal('hide');
+
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000);
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+                toastr.error('An error occurred while Editing Person.');
+            }
+        });
+    });
+
 }
 const delLocation = () => {
-    $('.delete-location').click(function () {
-        // console.log('edit button clicked');
+    // $('.delete-location').click(function () {
+    //     // console.log('edit button clicked');
+    //     $('#locationDel').modal('show');
+    // });
+    let id;
+
+    $(document).on('click', ".delete-location", function () {
         $('#locationDel').modal('show');
+
+        let dltRow = $(this).closest("tr");
+        // console.log(dltRow);
+        id = dltRow.contents(':first-child').text();
+
+
     });
+
+    $("#confirmLocDel").click(function (event) {
+        $.ajax({
+            url: 'php/deleteLocation.php',
+            type: 'POST',
+            datatype: 'json',
+            data: {
+                id: id
+            },
+            success: function (result) {
+                //console.log(result.message)
+                toastr.success(result.message);
+                $('#locationDel').modal('hide');
+                setTimeout(function () {
+                    // window.location.reload();
+                }, 1000);
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+                toastr.error('An error occurred while inserting location.');
+            }
+        })
+    })
 }

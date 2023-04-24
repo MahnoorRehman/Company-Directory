@@ -9,14 +9,11 @@ header('content-type: application/json; charset=UTF=8');
 
 include("conn.php");
 
+
+
 if(isset($_POST['name']) ){
 
-
-
     $name=$_POST['name'];
-   
-
-
     $query= "INSERT INTO `location`( `name`) VALUES (?) ";
 
     $stmt= mysqli_prepare($con, $query);
@@ -34,7 +31,7 @@ if(isset($_POST['name']) ){
             mysqli_stmt_close($stmt);
             mysqli_close($con);
            
-            exit;
+            
         } else{
             $data=[
                 'success'=>false,
@@ -43,8 +40,6 @@ if(isset($_POST['name']) ){
             echo json_encode($data);
             mysqli_stmt_close($stmt);
             mysqli_close($con);
-           
-            exit;
         }
     }
 

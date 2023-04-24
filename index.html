@@ -155,10 +155,7 @@
                         <tbody>
 
                         </tbody>
-
-
                     </table>
-                    <i class="fas fa-arrow-circle-up top-pers" title="return to top"></i>
                 </div>
             </div>
             <!------------ Department Tab -------------------------->
@@ -172,7 +169,6 @@
                     <table id='tableDepartment' class="table table-striped">
                         <thead class="table-head">
                             <tr>
-
                                 <th scope="col">Department <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
                                 <th scope="col">Location <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
                                 <th scope="col">Edit</th>
@@ -182,7 +178,6 @@
                         <tbody>
                         </tbody>
                     </table>
-                    <i class="fas fa-arrow-circle-up top-dep" title="return to top"></i>
                 </div>
             </div>
             <!------------ Location Tab -------------------------->
@@ -204,7 +199,6 @@
                         <tbody>
                         </tbody>
                     </table>
-                    <i class="fas fa-arrow-circle-up top-loc" title="return to top"></i>
                 </div>
             </div>
         </div>
@@ -283,7 +277,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-primary">
                 <div class="modal-header modal-heading">
-                    <h5 class="modal-title">Edit&nbsp;<span class="persName"></span></h5>
+                    <h5 class="modal-title">Edit&nbsp;<span id="persName"></span></h5>
                     <button type="button" class="btn-close btn-close-white" aria-label="Close"
                         data-bs-dismiss="modal"></button>
                 </div>
@@ -325,7 +319,7 @@
                                 id="departmentSelEdit" aria-label="Default select example"
                                 oninvalid="this.setCustomValidity('Please select a department')"
                                 oninput="this.setCustomValidity('')">
-                                <option value="" id="deptSelEdit"></option>
+
                             </select>
                         </div>
 
