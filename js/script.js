@@ -13,15 +13,10 @@ toastr.options = {
     closeButton: true,
     progressBar: true,
     positionClass: 'toast-bottom-right',
-    // timeOut: 2000 // set the timeOut option to 2000 milliseconds (2 seconds)
+
 };
 
-//as ko kha cal kr rhe ho ?
-
-
-
 $(document).ready(function () {
-
 
     $("#btn-search").click(function () {
         // $("#searchModal").show();
@@ -97,6 +92,21 @@ function getAllPersonnel() {
                 let jsondata = JSON.stringify(allResult);
                 let finalData = JSON.parse(jsondata);
                 // console.log(finalData);
+                //     let tableHeader = `
+                //     <thead class="table-head">
+                //       <tr>
+                //         <th scope="col" style="display: none;">ID</th>
+                //         <th scope="col">Name <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
+                //         <th scope="col">JobTitle <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
+                //         <th scope="col">Email <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
+                //         <th scope="col">Department <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
+                //         <th scope="col">Location <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
+                //         <th scope="col">Edit</th>
+                //         <th scope="col">Delete</th>
+                //       </tr>
+                //     </thead>
+                //   `;
+                //     $('#tablePersonel').append(tableHeader);
                 finalData.forEach(function (d) {
                     let id = d.id;
                     let fName = d.firstName;
@@ -120,8 +130,6 @@ function getAllPersonnel() {
     });
 }
 
-
-
 //get All Location
 function getAllLoc() {
     $('.locationSel').empty();
@@ -138,20 +146,18 @@ function getAllLoc() {
                 $('.locationSel').append(
                     '<option value="" selected="true" disabled>Choose a Location</option>');
                 locList.forEach(function (l) {
-
                     let loc = l.name;
                     let locId = l.id;
                     // console.log("Location", loc);
-
                     $('.locationSel').append($('<option>', {
                         value: locId,
                         text: loc
                     }));
                     locationTableRecord(locId, loc)
                 });
-                editLocation();
-                delLocation();
             }
+            editLocation();
+            delLocation();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(errorThrown, textStatus);
@@ -238,16 +244,6 @@ function personnelTablerecord(id, fName, lName, email, jobTitle, deptName, locNa
             $("<td>").html('<i class="fas fa-edit edit edit-personel"></i>'),
             $("<td>").html('<i class="fas fa-trash-alt delete-personel"></i>')
         )
-
-
-        // "<tr>" +
-        // "<td>" + fName + ", " + lName + "</td>" +
-        // "<td>" + email + "</td>" +
-        // "<td>" + deptName + "</td>" +
-        // "<td>" + locName + "</td>" +
-        // "<td>" + "EI" + "</td>" +
-        // "<td>" + "DI" + "</td>" +
-        // +"</tr>"
     );
 
 }
@@ -255,15 +251,20 @@ function personnelTablerecord(id, fName, lName, email, jobTitle, deptName, locNa
 
 //Insert Personal
 let insetPersoennl = () => {
+
     let insetPersoennl = document.querySelector('#insertPersonnel');
     let cancelPersonnelInsert = document.querySelector('#cancelPersonnelInsert');
-
     let personnelModal = document.querySelector('#personnelCreate');
 
     $(insetPersoennl).click(function () {
         //  console.log('person button clicked')
         $(personnelModal).show();
-        $('#persCreate').submit(function (event) {
+        $('#firstNameCreate').val("");
+        $('#lastNameCreate').val("");
+        $('#jobTitleCreate').val("");
+        $('#emailCreate').val("");
+        $('#departmentSelInsert').val("");
+        $('#persCreate').off("submit").submit(function (event) {
             event.preventDefault();
             //console.log('Insert Method Executed');
             let fName = uperCase($('#firstNameCreate').val());
@@ -272,7 +273,6 @@ let insetPersoennl = () => {
             let email = $('#emailCreate').val();
             let dID = $('#departmentSelInsert').val();
             //  console.log(fName, lName, email, dID);
-
             $.ajax({
                 url: './php/insertPersonnel.php',
                 type: 'POST',
@@ -285,14 +285,10 @@ let insetPersoennl = () => {
                     departmentID: dID
                 },
                 success: function (result) {
-                    //console.log('Success');
-                    // console.log(result.message);
-
                     toastr.success(result.message);
                     $(personnelModal).hide();
-                    setTimeout(function () {
-                        window.location.reload();
-                    }, 1000);
+                    $("#tablePersonel").html("");
+                    getAllPersonnel();
                 },
                 error: function (xhr, status, error) {
                     console.log(error);
@@ -353,7 +349,7 @@ const editPersonnel = () => {
         });
     });
 
-    $("#persUpdate").submit(function (event) {
+    $("#persUpdate").off("submit").submit(function (event) {
         event.preventDefault();
         $.ajax({
             url: 'php/editPersonnel.php',
@@ -371,9 +367,8 @@ const editPersonnel = () => {
                 //  console.log('Success');
                 toastr.success(result.message);
                 $('#personnelEdit').modal('hide');
-                setTimeout(function () {
-                    window.location.reload();
-                }, 1000);
+                $("#tablePersonel").html("");
+                getAllPersonnel();
             },
             error: function (xhr, status, error) {
                 console.log(error);
@@ -401,8 +396,8 @@ function delPersonnel() {
 
     });
 
-    $("#confirmPersDel").click(function (event) {
-        // event.preventDefault();
+    $("#confirmPersDel").off("click").on("click", function (event) {
+        event.preventDefault();
         $.ajax({
             url: 'php/deletePerson.php',
             type: 'POST',
@@ -413,10 +408,8 @@ function delPersonnel() {
             success: function (result) {
                 toastr.success(result.message);
                 $('#personnelDel').modal('hide');
-
-                setTimeout(function () {
-                    window.location.reload();
-                }, 1000);
+                $("#tablePersonel").html("");
+                getAllPersonnel();
             },
             error: function (xhr, status, error) {
                 console.log(error);
@@ -458,35 +451,30 @@ function insertDepartment() {
     $(insertDept).click(function () {
         //  console.log('i am clicked');
         $(deptModal).show();
-
-        $('#deptCreate').submit(function (event) {
-            event.preventDefault();
-            $.ajax({
-                url: 'php/insertDept.php',
-                datatype: 'json',
-                type: 'POST',
-                data: {
-                    name: uperCase($('#departmentCreateName').val()),
-                    locationID: $('#locationSelInsert').val(),
-                },
-                success: function (result) {
-                    //console.log('Success');
-                    // console.log(result.message);
-
-                    toastr.success(result.message);
-                    $(deptModal).hide();
-                    setTimeout(function () {
-                        window.location.reload();
-                    }, 1000);
-                },
-                error: function (xhr, status, error) {
-                    console.log(error);
-                    toastr.error('An error occurred while inserting Department.');
-                }
+        $('#departmentCreateName').val("");
+        $('#locationSelInsert').val(""),
+            $('#deptCreate').off("submit").submit(function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: 'php/insertDept.php',
+                    datatype: 'json',
+                    type: 'POST',
+                    data: {
+                        name: uperCase($('#departmentCreateName').val()),
+                        locationID: $('#locationSelInsert').val(),
+                    },
+                    success: function (result) {
+                        toastr.success(result.message);
+                        $(deptModal).hide();
+                        $("#tableDepartment").html("");
+                        getAllDept();
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(error);
+                        toastr.error('An error occurred while inserting Department.');
+                    }
+                });
             });
-            // return false;
-        });
-
     });
 
     $(cancelDept).click(function () {
@@ -517,7 +505,6 @@ function editDeptartment() {
             success: function (result) {
                 deptName = result[0].name;
                 locationID = result[0].locationID;
-
                 $("#department").val(deptName);
                 $("#locationSelEdit").val(locationID);
                 $('#departmentEdit').modal('show');
@@ -529,8 +516,8 @@ function editDeptartment() {
         });
     });
 
-    $("#depUpdate").submit(function (event) {
-        // event.preventDefault();
+    $("#depUpdate").off("submit").submit(function (event) {
+        event.preventDefault();
         $.ajax({
             url: 'php/editDept.php',
             type: 'POST',
@@ -544,10 +531,9 @@ function editDeptartment() {
 
                 toastr.success(result.message);
                 $('#departmentEdit').modal('hide');
+                $("#tableDepartment").html("");
+                getAllDept();
 
-                setTimeout(function () {
-                    // window.location.reload();
-                }, 1000);
             },
             error: function (xhr, status, error) {
                 console.log(error);
@@ -576,8 +562,8 @@ function delDepartment() {
 
     });
 
-    $("#confirmDepDel").click(function (event) {
-
+    $("#confirmDepDel").off("click").on("click", function (event) {
+        event.preventDefault();
         $.ajax({
             url: 'php/deleteDept.php',
             type: 'POST',
@@ -589,9 +575,8 @@ function delDepartment() {
                 //console.log(result.message)
                 toastr.success(result.message);
                 $('#departmentDel').modal('hide');
-                setTimeout(function () {
-                    // window.location.reload();
-                }, 1000);
+                $("#tableDepartment").html("");
+                getAllDept();
             },
             error: function (xhr, status, error) {
                 console.log(error);
@@ -634,9 +619,10 @@ const insertLocation = () => {
     $(insertLoc).click(function () {
         // console.log('i am clicked');
         $(locModal).show();
+        $('#locationCreateName').val("");
 
-        $('#locCreate').submit(function (event) {
-            // event.preventDefault();
+        $('#locCreate').off("submit").submit(function (event) {
+            event.preventDefault();
             $.ajax({
                 url: 'php/insertLocation.php',
                 type: 'POST',
@@ -649,9 +635,8 @@ const insertLocation = () => {
                     // console.log(result.message);
                     toastr.success(result.message);
                     $(locModal).hide();
-                    setTimeout(function () {
-                        window.location.reload();
-                    }, 1000);
+                    $("#tableLocation").html("");
+                    getAllLoc();
                 },
                 error: function (xhr, status, error) {
                     console.log(error);
@@ -663,15 +648,12 @@ const insertLocation = () => {
 
     $(cancelLoc).click(function () {
         $(locModal).hide();
-    })
+    });
 
 }
 
 const editLocation = () => {
-    // $('.edit-location').click(function () {
-    //     // console.log('edit button clicked');
-    //     $('#locationEdit').modal('show');
-    // });
+
     let locId;
 
     $(document).on("click", ".edit-location", function () {
@@ -700,8 +682,8 @@ const editLocation = () => {
         });
     });
 
-    $("#locUpdate").submit(function (event) {
-        // event.preventDefault();
+    $("#locUpdate").off("submit").submit(function (event) {
+        event.preventDefault();
         $.ajax({
             url: 'php/editLocation.php',
             type: 'POST',
@@ -714,10 +696,8 @@ const editLocation = () => {
                 //  console.log('Success');
                 toastr.success(result.message);
                 $('#locationEdit').modal('hide');
-
-                setTimeout(function () {
-                    window.location.reload();
-                }, 1000);
+                $("#tableLocation").html("");
+                getAllLoc();
             },
             error: function (xhr, status, error) {
                 console.log(error);
@@ -727,37 +707,33 @@ const editLocation = () => {
     });
 
 }
-const delLocation = () => {
-
+function delLocation() {
     let id;
     $(document).on('click', ".delete-location", function () {
         $('#locationDel').modal('show');
-
         let dltRow = $(this).closest("tr");
-        // console.log(dltRow);
         id = dltRow.contents(':first-child').text();
     });
 
-    $("#confirmLocDel").click(function (event) {
+    $("#confirmLocDel").off("click").on("click", function (event) {
+        event.preventDefault();
+
         $.ajax({
             url: 'php/deleteLocation.php',
             type: 'POST',
-            datatype: 'json',
-            data: {
-                id: id
-            },
+            data: { id: id },
             success: function (result) {
-                //console.log(result.message)
                 toastr.success(result.message);
                 $('#locationDel').modal('hide');
-                setTimeout(function () {
-                    // window.location.reload();
-                }, 1000);
+                $("#tableLocation").html("");
+                getAllLoc();
             },
             error: function (xhr, status, error) {
                 console.log(error);
-                toastr.error('An error occurred while inserting location.');
+                toastr.error('An error occurred while Deleting location.');
             }
-        })
-    })
+        });
+    });
 }
+
+
