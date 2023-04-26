@@ -31,7 +31,7 @@ $(document).ready(function () {
     location();
     department();
 
-
+    //Table Soring
     const tables = document.querySelectorAll("table");
 
     tables.forEach((table) => {
@@ -77,7 +77,19 @@ $(document).ready(function () {
             rows.forEach((row) => tbody.appendChild(row));
         }
     });
+
+
+
 });
+
+function search(searchBar, table) {
+    $(`${searchBar}`).on("keyup", function () {
+        let value = $(this).val().toLowerCase();
+        $(`${table} tbody tr`).filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+};
 
 
 // function to show all records in a Person 
@@ -91,22 +103,6 @@ function getAllPersonnel() {
             if (textStatus == 'success') {
                 let jsondata = JSON.stringify(allResult);
                 let finalData = JSON.parse(jsondata);
-                // console.log(finalData);
-                //     let tableHeader = `
-                //     <thead class="table-head">
-                //       <tr>
-                //         <th scope="col" style="display: none;">ID</th>
-                //         <th scope="col">Name <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
-                //         <th scope="col">JobTitle <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
-                //         <th scope="col">Email <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
-                //         <th scope="col">Department <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
-                //         <th scope="col">Location <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
-                //         <th scope="col">Edit</th>
-                //         <th scope="col">Delete</th>
-                //       </tr>
-                //     </thead>
-                //   `;
-                //     $('#tablePersonel').append(tableHeader);
                 finalData.forEach(function (d) {
                     let id = d.id;
                     let fName = d.firstName;
@@ -224,6 +220,8 @@ function uperCase(str) {
 
 /*----------------------------------Personnel-----------------------------*/
 function personnel() {
+    search('#search', '#tablePersonel');
+
     getAllPersonnel();
     insetPersoennl();
     // editPersonnel();
@@ -232,10 +230,9 @@ function personnel() {
 // Function to show all Data in Perosn Tablle
 function personnelTablerecord(id, fName, lName, email, jobTitle, deptName, locName) {
     $('#tablePersonel').append(
-
-        $("<tr>").append(
+        //  $("<tbody>").append(
+        $("<tr class='personalRow'>").append(
             $("<td style='display: none;'>").text(id),
-
             $("<td>").text(fName + ", " + lName),
             $("<td>").text(jobTitle),
             $("<td>").text(email),
@@ -244,6 +241,8 @@ function personnelTablerecord(id, fName, lName, email, jobTitle, deptName, locNa
             $("<td>").html('<i class="fas fa-edit edit edit-personel"></i>'),
             $("<td>").html('<i class="fas fa-trash-alt delete-personel"></i>')
         )
+        //  )
+
     );
 
 }
@@ -287,7 +286,7 @@ let insetPersoennl = () => {
                 success: function (result) {
                     toastr.success(result.message);
                     $(personnelModal).hide();
-                    $("#tablePersonel").html("");
+                    $(".personalRow").remove();
                     getAllPersonnel();
                 },
                 error: function (xhr, status, error) {
@@ -367,7 +366,7 @@ const editPersonnel = () => {
                 //  console.log('Success');
                 toastr.success(result.message);
                 $('#personnelEdit').modal('hide');
-                $("#tablePersonel").html("");
+                $(".personalRow").remove();
                 getAllPersonnel();
             },
             error: function (xhr, status, error) {
@@ -408,7 +407,7 @@ function delPersonnel() {
             success: function (result) {
                 toastr.success(result.message);
                 $('#personnelDel').modal('hide');
-                $("#tablePersonel").html("");
+                $(".personalRow").remove();
                 getAllPersonnel();
             },
             error: function (xhr, status, error) {
@@ -422,6 +421,7 @@ function delPersonnel() {
 
 /*----------------------------------Department-----------------------------*/
 function department() {
+    search('#search', '#tableDepartment');
     getAllDept();
     insertDepartment();
 
@@ -432,7 +432,7 @@ function department() {
 const deptTableRecord = (id, dep, loc) => {
     //  $('#tableDepartment').empty(); //
     $('#tableDepartment').append(
-        $('<tr>').append(
+        $("<tr class='deptRow'>").append(
             $("<td style='display: none;'>").text(id),
             $("<td>").text(dep),
             $("<td>").text(loc),
@@ -466,7 +466,7 @@ function insertDepartment() {
                     success: function (result) {
                         toastr.success(result.message);
                         $(deptModal).hide();
-                        $("#tableDepartment").html("");
+                        $(".deptRow").remove();
                         getAllDept();
                     },
                     error: function (xhr, status, error) {
@@ -531,7 +531,7 @@ function editDeptartment() {
 
                 toastr.success(result.message);
                 $('#departmentEdit').modal('hide');
-                $("#tableDepartment").html("");
+                $(".deptRow").remove();
                 getAllDept();
 
             },
@@ -554,12 +554,9 @@ function delDepartment() {
 
     $(document).on('click', ".delete-dept", function () {
         $('#departmentDel').modal('show');
-
         let dltRow = $(this).closest("tr");
         // console.log(dltRow);
         id = dltRow.contents(':first-child').text();
-
-
     });
 
     $("#confirmDepDel").off("click").on("click", function (event) {
@@ -575,7 +572,8 @@ function delDepartment() {
                 //console.log(result.message)
                 toastr.success(result.message);
                 $('#departmentDel').modal('hide');
-                $("#tableDepartment").html("");
+                //$("#tableDepartment").html("");
+                $(".deptRow").remove();
                 getAllDept();
             },
             error: function (xhr, status, error) {
@@ -591,6 +589,7 @@ function delDepartment() {
 /*----------------------------------Location-----------------------------*/
 
 function location() {
+    search('#search', '#tableLocation');
     getAllLoc();
     insertLocation();
 }
@@ -599,15 +598,13 @@ function location() {
 const locationTableRecord = (id, loc) => {
 
     $('#tableLocation').append(
-        $('<tr>').append(
+        $("<tr class='locationRow'>").append(
             $("<td style='display: none;'>").text(id),
             $("<td>").text(loc),
             $("<td>").html('<i class="fas fa-edit edit edit-location"></i>'),
             $("<td>").html('<i class="fas fa-trash-alt delete-location"></i>')
         )
     );
-
-
 
 }
 const insertLocation = () => {
@@ -620,9 +617,9 @@ const insertLocation = () => {
         // console.log('i am clicked');
         $(locModal).show();
         $('#locationCreateName').val("");
-
         $('#locCreate').off("submit").submit(function (event) {
             event.preventDefault();
+            console.log('i am clicked');
             $.ajax({
                 url: 'php/insertLocation.php',
                 type: 'POST',
@@ -635,7 +632,8 @@ const insertLocation = () => {
                     // console.log(result.message);
                     toastr.success(result.message);
                     $(locModal).hide();
-                    $("#tableLocation").html("");
+                    // $("#tableLocation").html("");
+                    $(".locationRow").remove();
                     getAllLoc();
                 },
                 error: function (xhr, status, error) {
@@ -696,7 +694,7 @@ const editLocation = () => {
                 //  console.log('Success');
                 toastr.success(result.message);
                 $('#locationEdit').modal('hide');
-                $("#tableLocation").html("");
+                $(".locationRow").remove();
                 getAllLoc();
             },
             error: function (xhr, status, error) {
@@ -725,7 +723,7 @@ function delLocation() {
             success: function (result) {
                 toastr.success(result.message);
                 $('#locationDel').modal('hide');
-                $("#tableLocation").html("");
+                $(".locationRow").remove();
                 getAllLoc();
             },
             error: function (xhr, status, error) {
