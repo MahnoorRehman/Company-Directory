@@ -92,6 +92,28 @@ function search(searchBar, table) {
 };
 
 
+//Sort on Page Laod
+// function sortTable() {
+//     let table = $('#tablePersonel');
+//     let rows = table.find('tr').toArray();
+
+//     // Custom compare function to sort by first name and last name
+//     rows.sort(function (a, b) {
+//         let nameA = $(a).find('td:eq(1)').text().toUpperCase(); // Get the first and last name column
+//         let nameB = $(b).find('td:eq(1)').text().toUpperCase();
+//         return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0;
+//     });
+
+//     // Remove existing table rows
+//     table.children('tbody').remove();
+
+//     // Append sorted rows back to the table
+//     for (let i = 0; i < rows.length; i++) {
+//         table.append(rows[i]);
+//     }
+// }
+
+
 // function to show all records in a Person 
 function getAllPersonnel() {
     $.ajax({
@@ -103,7 +125,7 @@ function getAllPersonnel() {
             if (textStatus == 'success') {
                 let jsondata = JSON.stringify(allResult);
                 let finalData = JSON.parse(jsondata);
-                finalData.forEach(function (d) {
+                allResult.forEach(function (d) {
                     let id = d.id;
                     let fName = d.firstName;
                     let lName = d.lastName;
@@ -117,6 +139,7 @@ function getAllPersonnel() {
                 });
                 editPersonnel();
                 delPersonnel();
+                //  console.log("Personnel table updated with new data:", finalData);
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -521,6 +544,7 @@ function editDeptartment() {
         $.ajax({
             url: 'php/editDept.php',
             type: 'POST',
+            cache: false,
             datatype: 'json',
             data: {
                 id: deptId,
@@ -533,7 +557,9 @@ function editDeptartment() {
                 $('#departmentEdit').modal('hide');
                 $(".deptRow").remove();
                 getAllDept();
-
+                $(".personalRow").remove();
+                getAllPersonnel();
+                // console.log("Personnel table updated.");
             },
             error: function (xhr, status, error) {
                 console.log(error);
@@ -546,43 +572,61 @@ function editDeptartment() {
 }
 
 function delDepartment() {
-    // $('.delete-dept').click(function () {
-    //     // console.log('edit button clicked');
-    //     $('#departmentDel').modal('show');
-    // });
-    let id;
+    let deptId;
 
     $(document).on('click', ".delete-dept", function () {
-        $('#departmentDel').modal('show');
         let dltRow = $(this).closest("tr");
-        // console.log(dltRow);
-        id = dltRow.contents(':first-child').text();
-    });
+        deptId = dltRow.contents(':first-child').text();
 
-    $("#confirmDepDel").off("click").on("click", function (event) {
-        event.preventDefault();
+        // Call checkDeptHasPersonnel.php to check if department has associated personnel records
         $.ajax({
-            url: 'php/deleteDept.php',
+            url: 'php/checkDeptHasPersonnel.php',
             type: 'POST',
             datatype: 'json',
             data: {
-                id: id
+                deptId: deptId,
             },
             success: function (result) {
-                //console.log(result.message)
-                toastr.success(result.message);
-                $('#departmentDel').modal('hide');
-                //$("#tableDepartment").html("");
-                $(".deptRow").remove();
-                getAllDept();
+                console.log(result);
+                if (result.success) {
+                    // If department has no associated personnel records, show confirm delete modal
+                    $('#departmentDel').modal('show');
+                    $("#confirmDepDel").off("click").on("click", function (event) {
+                        event.preventDefault();
+                        // Delete department if user confirms
+                        $.ajax({
+                            url: 'php/deleteDept.php',
+                            type: 'POST',
+                            datatype: 'json',
+                            data: {
+                                id: deptId,
+                            },
+                            success: function (result) {
+                                console.log(result.message);
+                                toastr.success(result.message);
+                                $(".deptRow").remove();
+                                getAllDept();
+                            },
+                            error: function (xhr, status, error) {
+                                console.log(error);
+                                toastr.error('An error occurred while deleting department.');
+                            }
+                        });
+                    });
+                } else {
+                    // If department has associated personnel records, show warning modal
+                    $('#warningModal').modal('show');
+                }
             },
             error: function (xhr, status, error) {
                 console.log(error);
-                toastr.error('An error occurred while inserting location.');
+                toastr.error('An error occurred while deleting department.');
             }
-        })
-    })
+        });
+    });
 }
+
+
 
 
 
@@ -672,6 +716,7 @@ const editLocation = () => {
                 //console.log(locName);
                 $("#location").val(locName);
                 $('#locationEdit').modal('show');
+
                 //  $('#edit-personnel-id').val(id);
             },
             error: function (xhr, status, error) {
@@ -696,6 +741,10 @@ const editLocation = () => {
                 $('#locationEdit').modal('hide');
                 $(".locationRow").remove();
                 getAllLoc();
+                $(".personalRow").remove();
+                getAllPersonnel();
+                $(".deptRow").remove();
+                getAllDept();
             },
             error: function (xhr, status, error) {
                 console.log(error);

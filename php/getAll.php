@@ -8,10 +8,16 @@ header('content-type: application/json; charset=UTF=8');
 
 include('conn.php');
 
-$query='SELECT p.id, p.firstName, p.lastName, p.jobTitle, p.email, d.name as department, l.name as location 
-        from personnel p LEFT JOIN department d ON (d.Id=p.departmentId)
+// $query='SELECT p.id, p.firstName, p.lastName, p.jobTitle, p.email, d.name as department, l.name as location 
+//         from personnel p LEFT JOIN department d ON (d.Id=p.departmentId)
+//         LEFT JOIN location l ON(l.ID=d.locationID) 
+//         ORDER BY p.id, p.lastName, p.firstName, d.name, l.name';
+
+$query = 'SELECT p.id, p.firstName, p.lastName, p.jobTitle, p.email, d.name as department, l.name as location 
+        FROM personnel p LEFT JOIN department d ON (d.Id=p.departmentId)
         LEFT JOIN location l ON(l.ID=d.locationID) 
-        ORDER BY p.id, p.lastName, p.firstName, d.name, l.name';
+        ORDER BY p.firstName ASC, p.lastName ASC, d.name ASC, l.name ASC';
+
 
 
 $stmt= mysqli_prepare($con, $query);

@@ -11,7 +11,7 @@ include('conn.php');
 
 $query='SELECT d.id, d.name, l.name as location FROM department d 
  LEFT JOIN location l ON(l.ID=d.locationID) 
- ORDER BY d.id, d.name, l.name';
+ ORDER BY d.name ASC, l.name ASC';
 
 $stmt= mysqli_prepare($con, $query);
 $dataList=[];

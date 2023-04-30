@@ -9,7 +9,7 @@ header('content-type:application/json; charset=UTF=8');
 
 include('conn.php');
 
-$query='SELECT * FROM location';
+$query = 'SELECT * FROM location ORDER BY name ASC';
 
 $stmt= mysqli_prepare($con, $query);
 $dataList=[];
