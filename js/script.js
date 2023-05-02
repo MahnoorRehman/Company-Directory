@@ -18,20 +18,11 @@ toastr.options = {
 
 $(document).ready(function () {
 
-    $("#btn-search").click(function () {
-        // $("#searchModal").show();
-    });
-
-    $("#btn-close").click(function () {
-        //  $("#searchModal").hide();
-    });
 
     //  Personnel
     personnel();
     location();
     department();
-
-
     searchTable();
 
     //Table Soring
@@ -234,20 +225,24 @@ function searchTable() {
                 searchTerm: $("#search").val()
             },
             success: function (result) {
-                console.log(result);
-                $(".personalRow").remove();
-                result.data.forEach(function (d) {
-                    let id = d.id;
-                    let fName = d.firstName;
-                    let lName = d.lastName;
-                    let email = d.email;
-                    let jobTitle = d.jobTitle;
-                    deptName = d.department;
-                    let locName = d.location;
-                    // console.log(locName);
-                    //  console.log(deptName);
-                    personnelTablerecord(id, fName, lName, email, jobTitle, deptName, locName);
-                });
+                //console.log(result);
+                if (result.success) {
+                    $(".personalRow").remove();
+                    result.data.forEach(function (d) {
+                        let id = d.id;
+                        let fName = d.firstName;
+                        let lName = d.lastName;
+                        let email = d.email;
+                        let jobTitle = d.jobTitle;
+                        deptName = d.department;
+                        let locName = d.location;
+                        // console.log(locName);
+                        //  console.log(deptName);
+                        personnelTablerecord(id, fName, lName, email, jobTitle, deptName, locName);
+                    });
+                } else {
+
+                }
             },
             error: function (xhr, status, error) {
                 console.log(error);
