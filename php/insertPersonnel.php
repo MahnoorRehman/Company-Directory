@@ -4,15 +4,11 @@ ini_set('display_errors', 'on');
 error_reporting(E_ALL);
 
 header('content-type: application/json; charset=UTF=8');
-
-
 include('conn.php');
 
 if(isset($_POST['firstName']) && isset($_POST['lastName'])  && isset($_POST['jobTitle'])
-&& isset($_POST['email']) && isset($_POST['departmentID']) 
-) {
+&& isset($_POST['email']) && isset($_POST['departmentID']) ) {
     
-
     $firstName=$_POST['firstName'];
     $lastName=$_POST['lastName'];
     $jobTitle=$_POST['jobTitle'];

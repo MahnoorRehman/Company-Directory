@@ -1,22 +1,15 @@
 <?php
 
-
-
 ini_set("display_errors", "on");
 error_reporting(E_ALL);
-
 header('content-type: application/json; charset=UTF=8');
 
 include("conn.php");
 
 if(isset($_POST['name']) && isset($_POST['locationID'])){
 
-
-
     $name=$_POST['name'];
     $locationID=$_POST['locationID'];
-
-
     $query= "INSERT INTO `department`( `name`, `locationID`) VALUES (?,?) ";
 
     $stmt= mysqli_prepare($con, $query);
@@ -24,7 +17,6 @@ if(isset($_POST['name']) && isset($_POST['locationID'])){
     if($stmt){
         $result=  mysqli_stmt_execute($stmt);
        
-
         if($result){
             $data=[
                 'success'=>true,
@@ -55,6 +47,5 @@ if(isset($_POST['name']) && isset($_POST['locationID'])){
     ];
     echo json_encode($data);
 }
-
 
 ?>

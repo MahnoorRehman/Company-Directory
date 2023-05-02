@@ -3,7 +3,6 @@
 
 ini_set("display_errors","on");
 error_reporting(E_ALL);
-
 header('content-type: application/json; charset=UTF=8');
 
 include('conn.php');
@@ -18,8 +17,6 @@ $query = 'SELECT p.id, p.firstName, p.lastName, p.jobTitle, p.email, d.name as d
         LEFT JOIN location l ON(l.ID=d.locationID) 
         ORDER BY p.firstName ASC, p.lastName ASC, d.name ASC, l.name ASC';
 
-
-
 $stmt= mysqli_prepare($con, $query);
 $info=[];
 if($stmt){
@@ -27,23 +24,19 @@ if($stmt){
     $result= mysqli_stmt_get_result($stmt);
    
     if($result===false){
-
         $data=[
             'success'=> false,
             'message'=> 'No data Available',
             'data'=>$info
-
         ];
         mysqli_stmt_close($stmt);
         mysqli_close($con);   
         echo json_encode($data);
-        exit;
-     
+        exit;     
      } else{
          while($row=mysqli_fetch_assoc($result)){
             array_push($info, $row);
          }
-
          $data=[
             'success'=> true,
             'message'=> 'Data Fetch Successful',
@@ -55,7 +48,5 @@ if($stmt){
          exit;
      }
 } 
-
-
 
 ?>

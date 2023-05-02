@@ -1,15 +1,10 @@
 <?php
-
-
-
 ini_set("display_errors", "on");
 error_reporting(E_ALL);
 
 header('content-type: application/json; charset=UTF=8');
 
 include("conn.php");
-
-
 
 if(isset($_POST['name']) ){
 
@@ -20,7 +15,6 @@ if(isset($_POST['name']) ){
     mysqli_stmt_bind_param($stmt, 's', $name );
     if($stmt){
         $result=  mysqli_stmt_execute($stmt);
-       
 
         if($result){
             $data=[

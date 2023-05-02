@@ -29,7 +29,6 @@ if($stmt){
         mysqli_close($con);
         echo json_encode($data);
         exit;
-
     }else{
         while($row=mysqli_fetch_assoc($result)){
            array_push($dataList, $row);
@@ -45,7 +44,5 @@ if($stmt){
          exit;
     }
 }
-
-
 
 ?>

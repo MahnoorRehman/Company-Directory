@@ -1,6 +1,6 @@
 <?php
 
-ini_set('display errors', 'on');
+ini_set('display_errors', 'on');
 error_reporting(E_ALL);
 
 header('content-type:application/json; charset=UTF-8');

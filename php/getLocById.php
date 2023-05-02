@@ -6,7 +6,6 @@ header('Content-Type: application/json; charset=UTF-8');
 
 include('conn.php');
 
-
 $query="SELECT `id`,`name` FROM `location` WHERE `id`=?";
 
 $stmt=mysqli_prepare($con, $query);
@@ -16,12 +15,10 @@ if($stmt){
     mysqli_stmt_execute($stmt);
     $result= mysqli_stmt_get_result($stmt);
     if($result===false){
-
         $data=[
             'success'=> false,
             'message'=> 'No data Available',
             'data'=>$info
-
         ];
         mysqli_stmt_close($stmt);
         mysqli_close($con);   

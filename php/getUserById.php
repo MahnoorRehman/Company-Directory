@@ -6,7 +6,6 @@ header('Content-Type: application/json; charset=UTF-8');
 
 include('conn.php');
 
-
 $query="SELECT `id`, `firstName`, `lastName`, `jobTitle`, `email`, `departmentID` FROM `personnel` WHERE `id`=?";
 
 $stmt=mysqli_prepare($con, $query);
@@ -21,7 +20,6 @@ if($stmt){
             'success'=> false,
             'message'=> 'No data Available',
             'data'=>$info
-
         ];
         mysqli_stmt_close($stmt);
         mysqli_close($con);   
@@ -32,7 +30,6 @@ if($stmt){
          while($row=mysqli_fetch_assoc($result)){
             array_push($info, $row);
          }
-
          $data=[
             'success'=> true,
             'message'=> 'Data Fetch Successful',

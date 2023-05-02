@@ -1,6 +1,5 @@
 <?php
 
-
 ini_set("display_errors", "on");
 error_reporting(E_ALL);
 header('Content-Type:application.json; charset=UTF-8');
@@ -16,7 +15,6 @@ $result = mysqli_stmt_get_result($stmt);
 $row = mysqli_fetch_assoc($result);
 
 $personnelCount = $row['personnelCount'];
-
 if ($personnelCount > 0) {
     $response = array(
         'success' => false,
@@ -31,6 +29,5 @@ if ($personnelCount > 0) {
 
 mysqli_stmt_close($stmt);
 mysqli_close($con);
-
 echo json_encode($response);
 ?>

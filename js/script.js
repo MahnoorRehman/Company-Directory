@@ -241,7 +241,6 @@ function searchTable() {
                         personnelTablerecord(id, fName, lName, email, jobTitle, deptName, locName);
                     });
                 } else {
-
                 }
             },
             error: function (xhr, status, error) {
@@ -458,8 +457,6 @@ function department() {
     // search('#search', '#tableDepartment');
     getAllDept();
     insertDepartment();
-
-
 }
 
 // Function to show all Data in Department Tablle

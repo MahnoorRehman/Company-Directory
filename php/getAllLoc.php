@@ -3,9 +3,7 @@
 
 ini_set('display_errors', 'on');
 error_reporting(E_ALL);
-
 header('content-type:application/json; charset=UTF=8');
-
 
 include('conn.php');
 
@@ -27,7 +25,6 @@ if($stmt){
         mysqli_close($con);
         echo json_encode($data);
         exit;
-
     }else{
         while($row=mysqli_fetch_assoc($result)){
            array_push($dataList, $row);
