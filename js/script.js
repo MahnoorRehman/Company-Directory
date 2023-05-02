@@ -31,6 +31,9 @@ $(document).ready(function () {
     location();
     department();
 
+
+    searchTable();
+
     //Table Soring
     const tables = document.querySelectorAll("table");
 
@@ -78,40 +81,16 @@ $(document).ready(function () {
         }
     });
 
-
-
 });
 
-function search(searchBar, table) {
-    $(`${searchBar}`).on("keyup", function () {
-        let value = $(this).val().toLowerCase();
-        $(`${table} tbody tr`).filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-    });
-};
-
-
-//Sort on Page Laod
-// function sortTable() {
-//     let table = $('#tablePersonel');
-//     let rows = table.find('tr').toArray();
-
-//     // Custom compare function to sort by first name and last name
-//     rows.sort(function (a, b) {
-//         let nameA = $(a).find('td:eq(1)').text().toUpperCase(); // Get the first and last name column
-//         let nameB = $(b).find('td:eq(1)').text().toUpperCase();
-//         return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0;
+// function search(searchBar, table) {
+//     $(`${searchBar}`).on("keyup", function () {
+//         let value = $(this).val().toLowerCase();
+//         $(`${table} tbody tr`).filter(function () {
+//             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+//         });
 //     });
-
-//     // Remove existing table rows
-//     table.children('tbody').remove();
-
-//     // Append sorted rows back to the table
-//     for (let i = 0; i < rows.length; i++) {
-//         table.append(rows[i]);
-//     }
-// }
+// };
 
 
 // function to show all records in a Person 
@@ -241,9 +220,46 @@ function uperCase(str) {
 
 }
 
+
+
+
+function searchTable() {
+
+    $("#search").on("keyup", function () {
+        $.ajax({
+            url: "php/searchNames.php",
+            type: 'POST',
+            datatype: "json",
+            data: {
+                searchTerm: $("#search").val()
+            },
+            success: function (result) {
+                console.log(result);
+                $(".personalRow").remove();
+                result.data.forEach(function (d) {
+                    let id = d.id;
+                    let fName = d.firstName;
+                    let lName = d.lastName;
+                    let email = d.email;
+                    let jobTitle = d.jobTitle;
+                    deptName = d.department;
+                    let locName = d.location;
+                    // console.log(locName);
+                    //  console.log(deptName);
+                    personnelTablerecord(id, fName, lName, email, jobTitle, deptName, locName);
+                });
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+                toastr.error('An error occurred while inserting Department.');
+            }
+        });
+    });
+}
+
 /*----------------------------------Personnel-----------------------------*/
 function personnel() {
-    search('#search', '#tablePersonel');
+    //  search('#search', '#tablePersonel');
 
     getAllPersonnel();
     insetPersoennl();
@@ -444,7 +460,7 @@ function delPersonnel() {
 
 /*----------------------------------Department-----------------------------*/
 function department() {
-    search('#search', '#tableDepartment');
+    // search('#search', '#tableDepartment');
     getAllDept();
     insertDepartment();
 
@@ -587,7 +603,7 @@ function delDepartment() {
                 deptId: deptId,
             },
             success: function (result) {
-                console.log(result);
+                // console.log(result);
                 if (result.success) {
                     // If department has no associated personnel records, show confirm delete modal
                     $('#departmentDel').modal('show');
@@ -616,6 +632,7 @@ function delDepartment() {
                 } else {
                     // If department has associated personnel records, show warning modal
                     $('#warningModal').modal('show');
+                    $("#deleteWarning").text(result.message);
                 }
             },
             error: function (xhr, status, error) {
@@ -633,7 +650,7 @@ function delDepartment() {
 /*----------------------------------Location-----------------------------*/
 
 function location() {
-    search('#search', '#tableLocation');
+    //  search('#search', '#tableLocation');
     getAllLoc();
     insertLocation();
 }
@@ -663,7 +680,6 @@ const insertLocation = () => {
         $('#locationCreateName').val("");
         $('#locCreate').off("submit").submit(function (event) {
             event.preventDefault();
-            console.log('i am clicked');
             $.ajax({
                 url: 'php/insertLocation.php',
                 type: 'POST',
@@ -757,30 +773,53 @@ const editLocation = () => {
 function delLocation() {
     let id;
     $(document).on('click', ".delete-location", function () {
-        $('#locationDel').modal('show');
+        // $('#locationDel').modal('show');
         let dltRow = $(this).closest("tr");
         id = dltRow.contents(':first-child').text();
-    });
-
-    $("#confirmLocDel").off("click").on("click", function (event) {
-        event.preventDefault();
 
         $.ajax({
-            url: 'php/deleteLocation.php',
+            url: 'php/checkLocationHasDepts.php',
             type: 'POST',
-            data: { id: id },
+            datatype: 'json',
+            data: {
+                locationId: id,
+            },
             success: function (result) {
-                toastr.success(result.message);
-                $('#locationDel').modal('hide');
-                $(".locationRow").remove();
-                getAllLoc();
+                if (result.success) {
+                    $('#locationDel').modal('show');
+                    $("#confirmLocDel").off("click").on("click", function (event) {
+                        event.preventDefault();
+                        $.ajax({
+                            url: 'php/deleteLocation.php',
+                            type: 'POST',
+                            data: { id: id },
+                            success: function (result) {
+                                toastr.success(result.message);
+                                $('#locationDel').modal('hide');
+                                $(".locationRow").remove();
+                                getAllLoc();
+                            },
+                            error: function (xhr, status, error) {
+                                console.log(error);
+                                toastr.error('An error occurred while Deleting location.');
+                            }
+                        });
+                    });
+                } else {
+                    // If department has associated personnel records, show warning modal
+                    $('#warningModal').modal('show');
+                    $("#deleteWarning").text(result.message);
+                }
             },
             error: function (xhr, status, error) {
                 console.log(error);
-                toastr.error('An error occurred while Deleting location.');
+                toastr.error('An error occurred while deleting department.');
             }
-        });
+        })
+
     });
+
+
 }
 
 

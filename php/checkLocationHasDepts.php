@@ -1,6 +1,13 @@
 <?php
 
+
+
+ini_set("display_errors", "on");
+error_reporting(E_ALL);
+header('Content-Type:application.json; charset=UTF-8');
+
 include('conn.php');
+
 
 $locationId = $_POST['locationId'];
 $query= 'SELECT COUNT(id) AS deptCount FROM department WHERE locationId = ?';
