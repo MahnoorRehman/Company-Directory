@@ -85,6 +85,8 @@ $(document).ready(function () {
 
 
 // function to show all records in a Person 
+
+
 function getAllPersonnel() {
     $.ajax({
         url: 'php/getAll.php',
@@ -212,8 +214,6 @@ function uperCase(str) {
 }
 
 
-
-
 function searchTable() {
 
     $("#search").on("keyup", function () {
@@ -266,13 +266,13 @@ function personnelTablerecord(id, fName, lName, email, jobTitle, deptName, locNa
         //  $("<tbody>").append(
         $("<tr class='personalRow'>").append(
             $("<td style='display: none;'>").text(id),
-            $("<td>").text(fName + ", " + lName),
-            $("<td>").text(jobTitle),
-            $("<td>").text(email),
+            $("<td>").text(lName + ", " + fName),
+            $("<td class='d-none d-md-table-cell'>").text(jobTitle),
+            $("<td class='d-none d-md-table-cell'>").text(email),
             $("<td>").text(deptName),
-            $("<td>").text(locName),
-            $("<td>").html('<i class="fas fa-edit edit edit-personel"></i>'),
-            $("<td>").html('<i class="fas fa-trash-alt delete-personel"></i>')
+            $("<td class='d-none d-md-table-cell'>").text(locName),
+            $("<td>").html('<i style="cursor:pointer;" class="fas fa-edit edit edit-personel"></i>'),
+            $("<td>").html('<i style="cursor:pointer;" class="fas fa-trash-alt delete-personel"></i>')
         )
         //  )
 
@@ -338,6 +338,7 @@ let insetPersoennl = () => {
 }
 
 //Edit Personnel
+
 const editPersonnel = () => {
 
     // $('.edit-personel').click(function () {
@@ -371,7 +372,7 @@ const editPersonnel = () => {
                 $('#jobTitle').val(jobTitle);
                 $('#email').val(email);
                 $('#departmentSelEdit').val(dept);
-                $('#persName').val(fName + lastName);
+                $('#persName').html(fName + " " + lName);
                 $('#personnelEdit').modal('show');
                 //  $('#edit-personnel-id').val(id);
             },
@@ -420,15 +421,17 @@ function delPersonnel() {
     let id;
 
     $(document).on('click', ".delete-personel", function () {
-        $('#personnelDel').modal('show');
-
         let dltRow = $(this).closest("tr");
         // console.log(dltRow);
         id = dltRow.contents(':first-child').text();
+        let fname = dltRow.find(':nth-child(2)').text();
+        $('.persName').html(fname);
+        $('#personnelDel').modal('show');
+
 
     });
 
-    $("#confirmPersDel").off("click").on("click", function (event) {
+    $("#persDelete").off("submit").submit(function (event) {
         event.preventDefault();
         $.ajax({
             url: 'php/deletePerson.php',
@@ -466,9 +469,9 @@ const deptTableRecord = (id, dep, loc) => {
         $("<tr class='deptRow'>").append(
             $("<td style='display: none;'>").text(id),
             $("<td>").text(dep),
-            $("<td>").text(loc),
-            $("<td>").html('<i class="fas fa-edit edit edit-dept"></i>'),
-            $("<td>").html('<i class="fas fa-trash-alt delete-dept"></i>')
+            $("<td class='d-none d-md-table-cell'>").text(loc),
+            $("<td>").html('<i style="cursor:pointer;" class="fas fa-edit edit edit-dept"></i>'),
+            $("<td>").html('<i style="cursor:pointer;" class="fas fa-trash-alt delete-dept"></i>')
         )
     );
 }
@@ -538,6 +541,7 @@ function editDeptartment() {
                 locationID = result[0].locationID;
                 $("#department").val(deptName);
                 $("#locationSelEdit").val(locationID);
+                $(".depName").html(deptName);
                 $('#departmentEdit').modal('show');
             },
             error: function (xhr, status, error) {
@@ -585,6 +589,8 @@ function delDepartment() {
     $(document).on('click', ".delete-dept", function () {
         let dltRow = $(this).closest("tr");
         deptId = dltRow.contents(':first-child').text();
+        let depName = dltRow.find(':nth-child(2)').text();
+
 
         // Call checkDeptHasPersonnel.php to check if department has associated personnel records
         $.ajax({
@@ -597,9 +603,11 @@ function delDepartment() {
             success: function (result) {
                 // console.log(result);
                 if (result.success) {
+
                     // If department has no associated personnel records, show confirm delete modal
+                    $('.depName').html(depName);
                     $('#departmentDel').modal('show');
-                    $("#confirmDepDel").off("click").on("click", function (event) {
+                    $("#depDelete").off("submit").submit(function (event) {
                         event.preventDefault();
                         // Delete department if user confirms
                         $.ajax({
@@ -654,8 +662,8 @@ const locationTableRecord = (id, loc) => {
         $("<tr class='locationRow'>").append(
             $("<td style='display: none;'>").text(id),
             $("<td>").text(loc),
-            $("<td>").html('<i class="fas fa-edit edit edit-location"></i>'),
-            $("<td>").html('<i class="fas fa-trash-alt delete-location"></i>')
+            $("<td>").html('<i style="cursor:pointer;" class="fas fa-edit edit edit-location"></i>'),
+            $("<td>").html('<i class="fas fa-trash-alt delete-location" style="cursor:pointer;"></i>')
         )
     );
 
@@ -723,6 +731,7 @@ const editLocation = () => {
                 let locName = result[0].name;
                 //console.log(locName);
                 $("#location").val(locName);
+                $(".locName").html(locName);
                 $('#locationEdit').modal('show');
 
                 //  $('#edit-personnel-id').val(id);
@@ -768,7 +777,7 @@ function delLocation() {
         // $('#locationDel').modal('show');
         let dltRow = $(this).closest("tr");
         id = dltRow.contents(':first-child').text();
-
+        let locName = dltRow.contents(':nth-child(2)').text();
         $.ajax({
             url: 'php/checkLocationHasDepts.php',
             type: 'POST',
@@ -778,8 +787,9 @@ function delLocation() {
             },
             success: function (result) {
                 if (result.success) {
+                    $(".locName").html(locName);
                     $('#locationDel').modal('show');
-                    $("#confirmLocDel").off("click").on("click", function (event) {
+                    $("#locDelete").off("submit").submit(function (event) {
                         event.preventDefault();
                         $.ajax({
                             url: 'php/deleteLocation.php',

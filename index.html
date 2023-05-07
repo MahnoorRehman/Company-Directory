@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Mahnoor">
-    <title>Compnay Directory</title>
+    <title>Company Directory</title>
 
 
 
@@ -48,8 +48,8 @@
             <form class="form-inline d-flex my-2 my-lg-0">
                 <input class="form-control  my-2 mr-sm-2" id="search" type="search" placeholder="Search"
                     aria-label="Search">
-                <div class="input-group-append  d-flex my-2 mx-2 mr-sm-2 ">
-                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                <div class="input-group-append d-flex my-2 mx-2 mr-sm-2 d-none d-md-table-cell ">
+                    <span class="input-group-text"><i class="fas fa-search "></i></span>
                 </div>
                 <!-- <button class="btn my-2 mx-2 mr-sm-2 search-btn" id="btn-search" type="submit">Search</button> -->
             </form>
@@ -69,7 +69,7 @@
         <div class="nav justify-content-center  fixed-top  navbar-dark  p-0 nav-buttons" id="nav-tab" role="tablist"
             style=" background-color: #fff">
 
-            <div class="d-flex nav nav-tabs text">
+            <div class=" nav nav-tabs nav-fill flex-sm-row text">
                 <button class="nav-link mt-4 p2-5 nav-button active" id="nav-personnel-tab" data-bs-toggle="tab"
                     data-bs-target="#nav-personnel" type="button" role="tab" aria-controls="nav-personnel"
                     aria-selected="true">Personnel</button>
@@ -86,78 +86,87 @@
 
 
     <!-- -------------------------Nav Tabs---------------------- -->
-    <div class="ps-2 pe-2 tab-table-content">
-        <div class="tab-content " id="nav-tabContent">
+    <div class=" scroll-table">
+        <div class="ps-2 pe-2 tab-table-content">
+            <div class="tab-content " id="nav-tabContent">
 
-            <!------------ Person Tab -------------------------->
-            <div class="tab-pane fade show active " id="nav-personnel" role="tabpanel"
-                aria-labelledby="nav-personnel-tab">
-                <div class="d-flex justify-content-between mt-3 mb-2">
-                    <button id="insertPersonnel" class="btn search-btn align-self-start me-2"><span>Add
-                            Personnel&nbsp;&nbsp;</span><i class="fas fa-plus-circle"></i></button>
+                <!------------ Person Tab -------------------------->
+                <div class="tab-pane fade show active " id="nav-personnel" role="tabpanel"
+                    aria-labelledby="nav-personnel-tab">
+                    <div class="d-flex justify-content-between mt-3 mb-2">
+                        <button id="insertPersonnel" class="btn search-btn align-self-start me-2"><span>Add
+                                Personnel&nbsp;&nbsp;</span><i class="fas fa-plus-circle"></i></button>
 
-                </div>
-                <div class="table-responsive">
-                    <table id='tablePersonel' class="table table-striped myTable">
-                        <thead class="table-head">
-                            <tr>
-                                <th scope="col" style="display: none;">ID</th>
-                                <th scope="col">Name <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
-                                <th scope="col">JObTitle <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
-                                <th scope="col">Email <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
-                                <th scope="col">Department <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
-                                <th scope="col">Location <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
-                                <th scope="col">Edit</th>
-                                <th scope="col">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    </div>
+                    <div class="table-responsive">
+                        <table id='tablePersonel' class="table table-striped myTable  ">
+                            <thead class="table-head tableHead">
+                                <tr class="heading-row">
+                                    <th scope="col" style="display: none;">ID</th>
+                                    <th scope="col">Name <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
+                                    <th scope="col" class='d-none d-md-table-cell'>JObTitle <i
+                                            class="bi bi-arrow-up-circle icon-arrow"></i></th>
+                                    <th scope="col" class='d-none d-md-table-cell'>Email <i
+                                            class="bi bi-arrow-up-circle icon-arrow"></i></th>
+                                    <th scope="col">Department <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
+                                    <th scope="col" class='d-none d-md-table-cell'>Location <i
+                                            class="bi bi-arrow-up-circle icon-arrow"></i></th>
+                                    <th scope="col">Edit</th>
+                                    <th scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            <!------------ Department Tab -------------------------->
-            <div class="tab-pane fade show" id="nav-departments" role="tabpanel" aria-labelledby="nav-departments-tab">
-                <div class="d-flex justify-content-between mt-3 mb-2">
-                    <button id="insertDepartment" class="btn search-btn align-self-start me-2"><span class="btnHide">Add
-                            Department&nbsp;&nbsp;</span><i class="fas fa-plus-circle"></i></button>
+                <!------------ Department Tab -------------------------->
+                <div class="tab-pane fade show" id="nav-departments" role="tabpanel"
+                    aria-labelledby="nav-departments-tab">
+                    <div class="d-flex justify-content-between mt-3 mb-2">
+                        <button id="insertDepartment" class="btn search-btn align-self-start me-2"><span
+                                class="btnHide">Add
+                                Department&nbsp;&nbsp;</span><i class="fas fa-plus-circle"></i></button>
 
+                    </div>
+                    <div class="table-responsive">
+                        <table id='tableDepartment' class="table table-striped">
+                            <thead class="table-head">
+                                <tr>
+                                    <th scope="col">Department <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
+                                    <th scope="col" class="d-none d-md-table-cell">Location <i
+                                            class="bi bi-arrow-up-circle icon-arrow"></i></th>
+                                    <th scope="col">Edit</th>
+                                    <th scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="table-responsive">
-                    <table id='tableDepartment' class="table table-striped">
-                        <thead class="table-head">
-                            <tr>
-                                <th scope="col">Department <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
-                                <th scope="col">Location <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
-                                <th scope="col">Edit</th>
-                                <th scope="col">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <!------------ Location Tab -------------------------->
-            <div class="tab-pane fade show" id="nav-locations" role="tabpanel" aria-labelledby="nav-locations-tab">
-                <div class="d-flex justify-content-between mt-3 mb-2">
-                    <button id="insertLocation" class="btn search-btn align-self-start me-2"><span class="btnHide">Add
-                            Location&nbsp;&nbsp;</span><i class="fas fa-plus-circle"></i></button>
+                <!------------ Location Tab -------------------------->
+                <div class="tab-pane fade show" id="nav-locations" role="tabpanel" aria-labelledby="nav-locations-tab">
+                    <div class="d-flex justify-content-between mt-3 mb-2">
+                        <button id="insertLocation" class="btn search-btn align-self-start me-2"><span
+                                class="btnHide">Add
+                                Location&nbsp;&nbsp;</span><i class="fas fa-plus-circle"></i></button>
 
-                </div>
-                <div class="table-responsive">
-                    <table id='tableLocation' class="table table-striped">
-                        <thead class="table-head">
-                            <tr>
-                                <th scope="col">Location <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
-                                <th scope="col">Edit</th>
-                                <th scope="col">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                    </div>
+                    <div class="table-responsive">
+                        <table id='tableLocation' class="table table-striped">
+                            <thead class="table-head">
+                                <tr>
+                                    <th scope="col">Location <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
+                                    <th scope="col">Edit</th>
+                                    <th scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -422,9 +431,9 @@
 
     <!-- Warning Modal -->
     <div class="modal fade" id="warningModal" tabindex="-1" aria-labelledby="warningModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header" style="background-color: 	#ffcc00;">
+                <div class="modal-header warningModal">
                     <h5 class="modal-title" id="warningModalLabel">Warning</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -481,7 +490,7 @@
     <div class="modal fade" id="locationEdit" tabindex="-1" aria-labelledby="Update Location" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-primary">
-                <div class="modal-header">
+                <div class="modal-header modal-heading ">
                     <h5 class="modal-title modal-heading">Edit&nbsp;<span class="locName"></span></h5>
                     <button type="button" class="btn-close btn-close-white" aria-label="Close"
                         data-bs-dismiss="modal"></button>
@@ -517,7 +526,7 @@
                             data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <p class="text-center mb-0">Are you sure you want to delete <span class="locName"></span>?</p>
+                        <p class="text-center mb-0">Are you sure you want to delet <span class="locName"></span>?</p>
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
                         <button type="submit" id="confirmLocDel" class="btn btn-danger double"

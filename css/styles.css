@@ -59,6 +59,8 @@ body {
 }
 
 
+
+
 .cd-heading {
 
     font-weight: 600;
@@ -92,8 +94,6 @@ body {
     background-color: #97c1ee !important;
 
 }
-
-
 
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
@@ -129,9 +129,38 @@ body {
 
 }
 
+.nav {
+    flex-wrap: nowrap !important;
+}
+
+.table-head {
+    position: sticky;
+    top: auto;
+    width: 100% !important;
+    z-index: 9999;
+}
+
+thead {
+    position: fied;
+    top: 200px;
+    left: 0;
+    right: 0;
+}
+
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+    border-style: none !important;
+}
+
+
 .tab-table-content {
     position: relative;
     top: 150px !important;
+
 }
 
 thead tr th {
@@ -149,4 +178,10 @@ thead tr th.active {
 
 thead tr th.active .icon-arrow {
     color: #fac33c;
+}
+
+
+
+.warningModal {
+    background-color: #ffcc00;
 }
