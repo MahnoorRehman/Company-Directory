@@ -145,6 +145,11 @@ body {
     top: 0px;
     z-index: 9999;
 } */
+thead {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
 
 
 
