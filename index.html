@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="extensions/sticky-header/bootstrap-table-sticky-header.css">
 
 
 
@@ -51,7 +52,7 @@
                 <div class="input-group-append d-flex my-2 mx-2 mr-sm-2 d-none d-md-table-cell ">
                     <span class="input-group-text"><i class="fas fa-search "></i></span>
                 </div>
-                
+
             </form>
         </nav>
 
@@ -86,7 +87,7 @@
 
 
     <!-- -------------------------Nav Tabs---------------------- -->
-    <div class=" scroll-table">
+    <div class="">
         <div class="ps-2 pe-2 tab-table-content">
             <div class="tab-content " id="nav-tabContent">
 
@@ -99,12 +100,12 @@
 
                     </div>
                     <div class="table-responsive">
-                        <table id='tablePersonel' class="table table-striped myTable  ">
+                        <table id='tablePersonel' data-sticky-header="true" class="table table-striped myTable  ">
                             <thead class="table-head tableHead">
                                 <tr class="heading-row">
                                     <th scope="col" style="display: none;">ID</th>
                                     <th scope="col">Name <i class="bi bi-arrow-up-circle icon-arrow"></i></th>
-                                    <th scope="col" class='d-none d-md-table-cell'>JObTitle <i
+                                    <th scope="col" class='d-none d-md-table-cell'>JOb Title <i
                                             class="bi bi-arrow-up-circle icon-arrow"></i></th>
                                     <th scope="col" class='d-none d-md-table-cell'>Email <i
                                             class="bi bi-arrow-up-circle icon-arrow"></i></th>
@@ -545,7 +546,7 @@
         referrerpolicy="no-referrer"></script>
 
 
-
+    <script src="extensions/sticky-header/bootstrap-table-sticky-header.js"></script>
     <script src="js/external/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/da3b0a7642.js" crossorigin="anonymous"></script>
 </body>
