@@ -140,16 +140,18 @@ body {
     z-index: 9999;
 } */
 
-/* th {
+th {
     position: sticky;
     top: 0px;
+
     z-index: 9999;
-} */
-thead {
+}
+
+/* thead {
     position: sticky;
     top: 0;
     z-index: 1000;
-}
+} */
 
 
 
