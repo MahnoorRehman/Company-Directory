@@ -66,10 +66,9 @@
 
     <!-- -------------- NAV BUTTONS ------------------------------->
     <nav>
-        <div class="nav justify-content-center  fixed-top  navbar-dark  p-0 nav-buttons" id="nav-tab" role="tablist"
-            style=" background-color: #fff">
-
-            <div class=" nav nav-tabs nav-fill flex-sm-row text">
+        <div class="nav justify-content-between fixed-top navbar-dark p-0 nav-buttons" id="nav-tab" role="tablist"
+            style="background-color: #fff">
+            <div class="nav nav-tabs nav-fill flex-sm-row text">
                 <button class="nav-link mt-4 p2-5 nav-button active" id="nav-personnel-tab" data-bs-toggle="tab"
                     data-bs-target="#nav-personnel" type="button" role="tab" aria-controls="nav-personnel"
                     aria-selected="true">Personnel</button>
@@ -79,10 +78,34 @@
                 <button class="nav-link mt-4 p2-5 nav-button" id="nav-locations-tab" data-bs-toggle="tab"
                     data-bs-target="#nav-locations" type="button" role="tab" aria-controls="nav-locations"
                     aria-selected="false">Locations</button>
+            </div>
+            <!-- Add  buttons inside each tab-pane element -->
+            <div class="d-flex align-items-center">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="nav-personnel" role="tabpanel"
+                        aria-labelledby="nav-personnel-tab">
+                        <button id="insertPersonnel" class="btn search-btn align-self-start ms-3"><span>Add
+                                Personnel&nbsp;&nbsp;</span><i class="fas fa-plus-circle"></i></button>
 
+                    </div>
+                    <div class="tab-pane fade" id="nav-departments" role="tabpanel"
+                        aria-labelledby="nav-departments-tab">
+                        <button id="insertDepartment" class="btn search-btn align-self-start me-2"><span
+                                class="btnHide">Add
+                                Department&nbsp;&nbsp;</span><i class="fas fa-plus-circle"></i></button>
+
+                    </div>
+                    <div class="tab-pane fade" id="nav-locations" role="tabpanel" aria-labelledby="nav-locations-tab">
+                        <button id="insertLocation" class="btn search-btn align-self-start me-2"><span
+                                class="btnHide">Add
+                                Location&nbsp;&nbsp;</span><i class="fas fa-plus-circle"></i></button>
+
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
+
 
 
     <!-- -------------------------Nav Tabs---------------------- -->
@@ -93,11 +116,6 @@
                 <!------------ Person Tab -------------------------->
                 <div class="tab-pane fade show active " id="nav-personnel" role="tabpanel"
                     aria-labelledby="nav-personnel-tab">
-                    <div class="d-flex justify-content-between mt-3 mb-2">
-                        <button id="insertPersonnel" class="btn search-btn align-self-start me-2"><span>Add
-                                Personnel&nbsp;&nbsp;</span><i class="fas fa-plus-circle"></i></button>
-
-                    </div>
                     <div class="table-responsive">
                         <table id='tablePersonel' class="table table-striped myTable  ">
                             <thead class="table-head tableHead">
@@ -124,12 +142,7 @@
                 <!------------ Department Tab -------------------------->
                 <div class="tab-pane fade show" id="nav-departments" role="tabpanel"
                     aria-labelledby="nav-departments-tab">
-                    <div class="d-flex justify-content-between mt-3 mb-2">
-                        <button id="insertDepartment" class="btn search-btn align-self-start me-2"><span
-                                class="btnHide">Add
-                                Department&nbsp;&nbsp;</span><i class="fas fa-plus-circle"></i></button>
 
-                    </div>
                     <div class="table-responsive">
                         <table id='tableDepartment' class="table table-striped">
                             <thead class="table-head">
@@ -148,12 +161,7 @@
                 </div>
                 <!------------ Location Tab -------------------------->
                 <div class="tab-pane fade show" id="nav-locations" role="tabpanel" aria-labelledby="nav-locations-tab">
-                    <div class="d-flex justify-content-between mt-3 mb-2">
-                        <button id="insertLocation" class="btn search-btn align-self-start me-2"><span
-                                class="btnHide">Add
-                                Location&nbsp;&nbsp;</span><i class="fas fa-plus-circle"></i></button>
 
-                    </div>
                     <div class="table-responsive">
                         <table id='tableLocation' class="table table-striped">
                             <thead class="table-head">

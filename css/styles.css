@@ -143,8 +143,8 @@ body {
 th {
     position: sticky;
     top: 0px;
-
     z-index: 9999;
+    margin-top: 200px;
 }
 
 /* thead {
@@ -166,7 +166,6 @@ tr {
 
 
 .tab-table-content {
-
     margin-top: 150px !important;
 
 }
